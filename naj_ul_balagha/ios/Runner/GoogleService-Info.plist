@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>921480359689-7c9gkqj01hjqtcmetto7k9fin9llsat6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.921480359689-7c9gkqj01hjqtcmetto7k9fin9llsat6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDyDYvLNgLApDpu7cBA5CYxvRdAbPT8NxE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>921480359689</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.najUlBalagha</string>
+	<key>PROJECT_ID</key>
+	<string>naij-ul-balagha</string>
+	<key>STORAGE_BUCKET</key>
+	<string>naij-ul-balagha.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:921480359689:ios:0122295a8cb223b58fedd8</string>
+</dict>
+</plist>

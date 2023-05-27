@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "921480359689",
+    "project_id": "naij-ul-balagha",
+    "storage_bucket": "naij-ul-balagha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921480359689:android:a27258cb2a95ad568fedd8",
+        "android_client_info": {
+          "package_name": "com.example.gtk_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921480359689-4k3rqa78ajtvcj8npg9uv2ifc1gva17u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAtYQVT_w8YFcbRbqFvy3G5qNkBJIiqSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921480359689-4k3rqa78ajtvcj8npg9uv2ifc1gva17u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "921480359689-oh88h3168bnn2m6lrf8u2kd6lerbei72.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gtkFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921480359689:android:f635e102cd36ccbb8fedd8",
+        "android_client_info": {
+          "package_name": "com.example.naj_ul_balagha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921480359689-4k3rqa78ajtvcj8npg9uv2ifc1gva17u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAtYQVT_w8YFcbRbqFvy3G5qNkBJIiqSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921480359689-4k3rqa78ajtvcj8npg9uv2ifc1gva17u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "921480359689-oh88h3168bnn2m6lrf8u2kd6lerbei72.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gtkFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
