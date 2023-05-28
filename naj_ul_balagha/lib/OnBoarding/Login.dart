@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
         if (user != null) {
           print("Login Successful");
           // ignore: use_build_context_synchronously
-          Navigator.popAndPushNamed(context, "/test");
+          Navigator.popAndPushNamed(context, "/HomePage");
         }
         // Navigator.pushNamed(context, '/home');
       } on FirebaseAuthException catch (e) {
@@ -250,6 +250,7 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     controller: passwordController,
+                    obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(
@@ -331,7 +332,9 @@ class _LoginState extends State<Login> {
                     ),
                     const Text('Don\'t have an account?'),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/SignUp');
+                      },
                       child: const Text('Sign Up'),
                     )
                   ],

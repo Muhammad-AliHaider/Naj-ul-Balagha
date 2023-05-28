@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
+
+import 'OnBoarding/Signup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/': (context) => Login(),
+        '/SignUp': (context) => SignUp(),
+        '/HomePage': (context) => HomePage(),
         '/test': (context) => const MyHomePage(title: "avc")
       },
       title: 'Flutter Demo',
