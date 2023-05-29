@@ -47,8 +47,8 @@ class UserBloc extends Bloc<user_Event, StateBlock> {
           emit(BlocLoad());
           await _userRepo.UpdateUser(event.Email, event.Password,
               event.UserName, event.BirthDate, event.id);
-          // UserModel data = UserModel();
-          emit(BlocLoad());
+          // List<UserModel> data = [];
+          emit(BlocMove());
         }
       } catch (e) {
         print(e);

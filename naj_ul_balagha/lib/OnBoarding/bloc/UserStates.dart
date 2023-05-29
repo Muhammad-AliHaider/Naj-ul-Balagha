@@ -13,6 +13,13 @@ class BlocInitial extends StateBlock {
   List<Object> get props => [];
 }
 
+class BlocMove extends StateBlock {
+  const BlocMove();
+
+  @override
+  List<Object> get props => [];
+}
+
 class BlocLoad extends StateBlock {
   const BlocLoad();
 

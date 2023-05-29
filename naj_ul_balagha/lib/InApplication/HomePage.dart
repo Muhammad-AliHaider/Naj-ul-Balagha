@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _initLocale() async {
     await Future.delayed(Duration.zero); // Delay execution until after build
-    widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
+    widget.changeLocale(const Locale('en', 'US')); // Change to French locale
     setState(() {}); // Rebuild the widget
   }
 
@@ -42,7 +42,11 @@ class _HomePageState extends State<HomePage> {
             Center(
               child: Text(
                 'نهج البلاغة',
-                style: ArabicFonts.reemKufi(
+                // style: ArabicFonts.reemKufi(
+                //   textStyle: TextStyle(fontSize: 50),
+                //   color: Color.fromARGB(255, 65, 205, 149),
+                // ),
+                style: ArabicFonts.amiri(
                   textStyle: TextStyle(fontSize: 50),
                   color: Color.fromARGB(255, 65, 205, 149),
                 ),
@@ -72,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BalaghaToc(
                         TypeId: 5,
                         title: 'حرف آغاز',
+                        changeLocale: widget.changeLocale,
                       ),
                     ),
                   );
@@ -100,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BalaghaToc(
                         TypeId: 1,
                         title: 'خطبات',
+                        changeLocale: widget.changeLocale,
                       ),
                     ),
                   );
@@ -125,6 +131,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BalaghaToc(
                         TypeId: 2,
                         title: 'مکتوبات',
+                        changeLocale: widget.changeLocale,
                       ),
                     ),
                   );
@@ -153,6 +160,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BalaghaToc(
                         TypeId: 3,
                         title: 'حکم و مواعظ',
+                        changeLocale: widget.changeLocale,
                       ),
                     ),
                   );
@@ -181,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BalaghaToc(
                         TypeId: 4,
                         title: 'تشریح طلب کلام',
+                        changeLocale: widget.changeLocale,
                       ),
                     ),
                   );
@@ -233,7 +242,9 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.bookmark),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Profile');
+                },
                 icon: const Icon(Icons.person),
               ),
             ],

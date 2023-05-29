@@ -1,27 +1,23 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import '../OnBoarding/bloc/UserBloc.dart';
+import '../OnBoarding/bloc/UserEvents.dart';
+import '../OnBoarding/bloc/UserStates.dart';
+import '../OnBoarding/bloc/UserRepo.dart';
 
-import 'bloc/UserBloc.dart';
-import 'bloc/UserEvents.dart';
-import 'bloc/UserRepo.dart';
-import 'bloc/UserStates.dart';
-
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
-
+class UpdateUser extends StatefulWidget {
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<UpdateUser> createState() => _UpdateUserState();
 }
 
-class _SignUpState extends State<SignUp> {
-  @override
+class _UpdateUserState extends State<UpdateUser> {
   Widget build(BuildContext context) {
-    // TextEditingController dateInput = TextEditingController();
+    User? user = FirebaseAuth.instance.currentUser;
+    // user.updateDisplayName
+    // user.updatePassword
+    // user.updateEmail
 
     TextEditingController dateInput = TextEditingController();
     TextEditingController? emailController = TextEditingController();
@@ -49,7 +45,6 @@ class _SignUpState extends State<SignUp> {
 
     late String Error_text_Email;
     late String Error_text_Password;
-    late String Error_text_ConfirmPassword;
     late String Error_text_UserName;
     late String Error_text_BirthDate;
 
@@ -83,18 +78,6 @@ class _SignUpState extends State<SignUp> {
       }
     }
 
-    HandleValidate_ConfirmPassword() {
-      if (confirmPasswordController.text.isEmpty) {
-        showError_ConfirmPassword = true;
-        Error_text_ConfirmPassword = 'Please Enter Confirm Password';
-      } else if (confirmPasswordController.text != passwordController.text) {
-        showError_ConfirmPassword = true;
-        Error_text_ConfirmPassword = 'Password Not Match';
-      } else {
-        showError_ConfirmPassword = false;
-      }
-    }
-
     HandleValidate_UserName() {
       if (userNameController.text.isEmpty) {
         showError_UserName = true;
@@ -113,70 +96,7 @@ class _SignUpState extends State<SignUp> {
       }
     }
 
-    Future<User?> SignUpUsingEmailAndPass({
-      required String email,
-      required String password,
-      required BuildContext context,
-    }) async {
-      await Firebase.initializeApp();
-      FirebaseAuth _auth = FirebaseAuth.instance;
-
-      try {
-        UserCredential userCredential =
-            await _auth.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-        print(userCredential.user!.uid);
-        return userCredential.user;
-      } on FirebaseAuthException catch (e) {
-        print(e.message);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.message.toString()),
-          ),
-        );
-        return null;
-      }
-    }
-
-    Future<User?> signInUsingEmailPassword({
-      required String Email,
-      required String Password,
-      required BuildContext Context,
-    }) async {
-      FirebaseAuth auth = FirebaseAuth.instance;
-
-      User? user;
-
-      try {
-        UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: Email,
-          password: Password,
-        );
-        user = userCredential.user;
-        // ignore: use_build_context_synchronously
-        if (user != null) {
-          print("Login Successful");
-          // ignore: use_build_context_synchronously
-          // Navigator.popAndPushNamed(context, "/test");
-          return user;
-        }
-        // Navigator.pushNamed(context, '/home');
-      } on FirebaseAuthException catch (e) {
-        setState(() {
-          loading = false;
-          error = true;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.message.toString()),
-          ),
-        );
-      }
-    }
-
-    void SignUp(context) async {
+    void Update(context) async {
       String email = emailController.text;
       String password = passwordController.text;
       String UserName = userNameController.text;
@@ -184,7 +104,6 @@ class _SignUpState extends State<SignUp> {
 
       HandleValidate_Email();
       HandleValidate_Password();
-      HandleValidate_ConfirmPassword();
       HandleValidate_UserName();
       HandleValidate_BirthDate();
 
@@ -194,26 +113,19 @@ class _SignUpState extends State<SignUp> {
           loading = true;
         });
 
-        await SignUpUsingEmailAndPass(
-          email: email,
-          password: password,
-          context: context,
-        );
-
-        User? user = await signInUsingEmailPassword(
-            Email: email, Password: password, Context: context);
-
         if (user != null) {
           print(user.uid);
 
           user.updateDisplayName(UserName);
+          user.updateEmail(email);
+          user.updatePassword(password);
 
-          BlocProvider.of<UserBloc>(context).add(userAdd_Event(
+          BlocProvider.of<UserBloc>(context).add(userUpdate_Event(
               Email: email,
               Password: password,
               UserName: UserName,
               BirthDate: BirthDate,
-              uid: user.uid));
+              id: user.uid));
         } else {
           setState(() {
             loading = false;
@@ -230,28 +142,37 @@ class _SignUpState extends State<SignUp> {
       }
     }
 
-    return BlocProvider(
-      create: (create) => UserBloc(
-        UserRepo(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Update User"),
+        surfaceTintColor: Color.fromARGB(84, 73, 236, 201),
+        shadowColor: Colors.grey.withOpacity(0.5),
+        backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
-      child: BlocListener<UserBloc, StateBlock>(
-        listener: (context, state) {
-          if (state is BlocSuccess) {
-            setState(() {
-              loading = false;
-            });
-            Navigator.popAndPushNamed(context, '/');
-          }
-        },
-        child: BlocBuilder<UserBloc, StateBlock>(
-          builder: (context, state) {
-            if (state is BlocLoad) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is BlocInitial) {
-              return Scaffold(
-                body: Stack(
+      body: BlocProvider(
+        create: (context) =>
+            UserBloc(UserRepo())..add(readUser_Event(uid: user!.uid)),
+        child: BlocListener<UserBloc, StateBlock>(
+          listener: (context, state) {
+            if (state is BlocMove) {
+              setState(() {
+                loading = false;
+              });
+              Navigator.pop(context);
+            }
+          },
+          child: BlocBuilder<UserBloc, StateBlock>(
+            builder: (context, state) {
+              if (state is BlocLoad) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is BlocSuccess) {
+                emailController.text = state.data[0].Email.toString();
+                passwordController.text = state.data[0].Password.toString();
+                userNameController.text = state.data[0].UserName.toString();
+                dateInput.text = state.data[0].BirthDate.toString();
+                return Stack(
                   children: [
                     Center(
                       child: Padding(
@@ -259,8 +180,7 @@ class _SignUpState extends State<SignUp> {
                         child: ListView(
                           children: [
                             SizedBox(
-                                child: Image.asset(
-                                    "assets/images/BG_SignUP_2.png")),
+                                child: Image.asset("assets/images/muslim.png")),
                             Card(
                                 child: Form(
                               key: formkey,
@@ -307,31 +227,6 @@ class _SignUpState extends State<SignUp> {
                                     validator: (value) {
                                       if (showError_Password) {
                                         return Error_text_Password;
-                                      } else {
-                                        return null;
-                                      }
-                                    },
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    controller: confirmPasswordController,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      labelText: 'Confirm Password',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 139, 241, 200)),
-                                      ),
-                                      suffixIcon:
-                                          const Icon(Icons.password_outlined),
-                                      suffixIconColor: const Color.fromARGB(
-                                          255, 139, 241, 200),
-                                    ),
-                                    validator: (value) {
-                                      if (showError_ConfirmPassword) {
-                                        return Error_text_ConfirmPassword;
                                       } else {
                                         return null;
                                       }
@@ -408,7 +303,7 @@ class _SignUpState extends State<SignUp> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: InkWell(
                                         onTap: () {
-                                          SignUp(context);
+                                          Update(context);
                                         },
                                         child: Container(
                                             height: 50,
@@ -427,7 +322,7 @@ class _SignUpState extends State<SignUp> {
                                             ),
                                             child: const Center(
                                                 child: Text(
-                                              'Sign Up',
+                                              'Update',
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20,
@@ -442,28 +337,19 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.arrow_back),
-                      ),
-                    ),
                   ],
-                ),
-              );
-            } else if (state is BlocError || error) {
-              return const Center(
-                child: Text("Error"),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+                );
+              } else if (state is BlocError) {
+                return const Center(
+                  child: Text("error"),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

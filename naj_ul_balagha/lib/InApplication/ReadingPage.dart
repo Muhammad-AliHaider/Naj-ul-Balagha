@@ -12,8 +12,13 @@ class ReadingPage extends StatefulWidget {
   final int Type;
   final int TypeNo;
   final String title;
+  final int totalTypeNo;
   const ReadingPage(
-      {Key? key, required this.Type, required this.TypeNo, required this.title})
+      {Key? key,
+      required this.Type,
+      required this.TypeNo,
+      required this.title,
+      required this.totalTypeNo})
       : super(key: key);
   @override
   _ReadingPageState createState() => _ReadingPageState();
@@ -75,7 +80,9 @@ class _ReadingPageState extends State<ReadingPage> {
                 ),
                 title: const Text('Page 1'),
                 onTap: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/HomePage'));
+                  // Navigator.popUntil(context, ModalRoute.withName('/HomePage'));
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/HomePage', (route) => false);
                 },
               ),
               Divider(),
@@ -85,7 +92,8 @@ class _ReadingPageState extends State<ReadingPage> {
                 ),
                 title: const Text('Page 2'),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/Profile', ModalRoute.withName('/HomePage'));
                 },
               ),
               Divider(),
@@ -131,17 +139,81 @@ class _ReadingPageState extends State<ReadingPage> {
                             return Card(
                               child: ListTile(
                                 title: Text(state.data[index].AR.toString(),
-                                    style: ArabicFonts.mirza(fontSize: 25)),
+                                    style: ArabicFonts.mirza(fontSize: 30)),
                                 subtitle: Text(
                                     state.data[index].UR != null
                                         ? state.data[index].UR.toString()
                                         : '',
-                                    style: ArabicFonts.amiri(fontSize: 15)),
+                                    style: ArabicFonts.amiri(fontSize: 20)),
                               ),
                             );
                           },
                         ),
                       ),
+                      Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 65, 205, 149),
+                                  Color.fromARGB(84, 73, 236, 201)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 10,
+                                  spreadRadius: 5,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                          )),
+                      Align(
+                          alignment: Alignment.bottomLeft,
+                          child: IconButton(
+                              iconSize: 50,
+                              onPressed: () {
+                                if (widget.TypeNo < widget.totalTypeNo) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReadingPage(
+                                        Type: widget.Type,
+                                        TypeNo: widget.TypeNo + 1,
+                                        title: widget.title,
+                                        totalTypeNo: widget.totalTypeNo,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: Icon(Icons.arrow_right))),
+                      Align(
+                          alignment: Alignment.bottomRight,
+                          child: IconButton(
+                              iconSize: 50,
+                              onPressed: () {
+                                if (widget.TypeNo > 1) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReadingPage(
+                                        Type: widget.Type,
+                                        TypeNo: widget.TypeNo - 1,
+                                        title: widget.title,
+                                        totalTypeNo: widget.totalTypeNo,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: Icon(Icons.arrow_left))),
                     ],
                   );
                 } else {

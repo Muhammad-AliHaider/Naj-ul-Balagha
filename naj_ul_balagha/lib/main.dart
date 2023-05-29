@@ -6,6 +6,8 @@ import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
+import 'InApplication/ProfileOptions.dart';
+import 'InApplication/UpdateUser.dart';
 import 'OnBoarding/Signup.dart';
 
 void main() async {
@@ -49,6 +51,9 @@ class _APPState extends State<APP> {
         '/HomePage': (context) => HomePage(
               changeLocale: changeLocale,
             ),
+
+        '/Profile': (context) => Profile(changeLocale: changeLocale),
+        '/UpdateUser': (context) => UpdateUser(),
         '/test': (context) => const MyHomePage(title: "avc"),
         // '/IndexPage': (context) => BalaghaToc()
       },

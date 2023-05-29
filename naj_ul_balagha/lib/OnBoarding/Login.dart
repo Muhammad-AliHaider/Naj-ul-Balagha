@@ -105,15 +105,31 @@ class _LoginState extends State<Login> {
           Error_msg = "No user found for that email.";
           print('No user found for that email.');
 
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message.toString()),
+            ),
+          );
+
           return null;
         } else if (e.code == 'wrong-password') {
           Error_msg = "Wrong password provided.";
           print('Wrong password provided.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message.toString()),
+            ),
+          );
           loading = false;
           return null;
         } else {
           Error_msg = "Something went wrong";
           print("Something went wrong");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message.toString()),
+            ),
+          );
           loading = false;
           return null;
         }

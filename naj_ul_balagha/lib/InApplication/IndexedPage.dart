@@ -12,7 +12,13 @@ import 'ReadingPage.dart';
 class BalaghaToc extends StatefulWidget {
   final int TypeId;
   final String title;
-  const BalaghaToc({Key? key, required this.TypeId, required this.title})
+  final Function(Locale) changeLocale;
+
+  const BalaghaToc(
+      {Key? key,
+      required this.TypeId,
+      required this.title,
+      required this.changeLocale})
       : super(key: key);
 
   @override
@@ -21,6 +27,19 @@ class BalaghaToc extends StatefulWidget {
 
 class _BalaghaTocState extends State<BalaghaToc> {
   static User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> _initLocale() async {
+    await Future.delayed(Duration.zero); // Delay execution until after build
+    widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
+    setState(() {}); // Rebuild the widget
+  }
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initLocale();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,20 +94,24 @@ class _BalaghaTocState extends State<BalaghaToc> {
                       leading: Icon(
                         Icons.home,
                       ),
-                      title: const Text('Page 1'),
+                      title: const Text('Home'),
                       onTap: () {
-                        Navigator.popUntil(
-                            context, ModalRoute.withName('/HomePage'));
+                        // Navigator.popUntil(
+                        //     context, ModalRoute.withName('/HomePage'));
+                        // Navigator.popAndPushNamed(context, '/HomePage');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/HomePage', (route) => false);
                       },
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(
-                        Icons.train,
+                        Icons.person,
                       ),
-                      title: const Text('Page 2'),
+                      title: const Text('Profile'),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamedAndRemoveUntil(context, '/Profile',
+                            ModalRoute.withName('/HomePage'));
                       },
                     ),
                     Divider(),
@@ -110,16 +133,19 @@ class _BalaghaTocState extends State<BalaghaToc> {
                         child: ListTile(
                           title: Text(state.data[index].Description as String),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReadingPage(
-                                  Type: widget.TypeId,
-                                  title: widget.title,
-                                  TypeNo: state.data[index].typeNo as int,
+                            if (widget.TypeId != 5) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReadingPage(
+                                    Type: widget.TypeId,
+                                    title: widget.title,
+                                    TypeNo: state.data[index].typeNo as int,
+                                    totalTypeNo: state.data.length,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
                           },
                           leading: Text(state.data[index].typeNo.toString()),
                         ),
