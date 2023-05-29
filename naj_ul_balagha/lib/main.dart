@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
+import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
 import 'OnBoarding/Signup.dart';
@@ -14,15 +16,53 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return APP();
+  }
+}
+
+class APP extends StatefulWidget {
+  @override
+  State<APP> createState() => _APPState();
+}
+
+class _APPState extends State<APP> {
+  Locale _currentLocale = const Locale('en', 'US');
+
+  changeLocale(Locale newLocale) {
+    setState(() {
+      _currentLocale = newLocale;
+      print(_currentLocale);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => Login(),
+        '/': (context) => Login(
+              changeLocale: changeLocale,
+            ),
         '/SignUp': (context) => SignUp(),
-        '/HomePage': (context) => HomePage(),
-        '/test': (context) => const MyHomePage(title: "avc")
+        '/HomePage': (context) => HomePage(
+              changeLocale: changeLocale,
+            ),
+        '/test': (context) => const MyHomePage(title: "avc"),
+        // '/IndexPage': (context) => BalaghaToc()
       },
+      localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale("en", "US"),
+        Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
+      ],
+      locale: _currentLocale, // OR Locale('ar', 'AE') OR Other RTL locales,
+
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

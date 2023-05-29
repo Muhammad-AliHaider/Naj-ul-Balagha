@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  final ValueChanged<Locale> changeLocale;
+  const Login({Key? key, required this.changeLocale}) : super(key: key);
   static const String routeName = '/Login';
   @override
   _LoginState createState() => _LoginState();
@@ -11,6 +12,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   static const String routeName = '/Login';
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initLocale();
+    });
+  }
+
+  Future<void> _initLocale() async {
+    await Future.delayed(Duration.zero); // Delay execution until after build
+    widget.changeLocale(const Locale('en', 'US')); // Change to French locale
+    setState(() {}); // Rebuild the widget
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: mybody(context));

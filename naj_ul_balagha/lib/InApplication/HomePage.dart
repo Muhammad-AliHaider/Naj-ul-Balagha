@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_language_fonts/google_language_fonts.dart';
+import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final Function(Locale) changeLocale;
+  const HomePage({Key? key, required this.changeLocale}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -11,24 +13,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initLocale();
+    });
+  }
+
+  Future<void> _initLocale() async {
+    await Future.delayed(Duration.zero); // Delay execution until after build
+    widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
+    setState(() {}); // Rebuild the widget
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // SizedBox(
-          //     child: Container(
-          //   height: MediaQuery.of(context).size.height,
-          //   width: MediaQuery.of(context).size.width,
-          //   decoration: const BoxDecoration(
-          //     gradient: LinearGradient(
-          //         begin: Alignment.topCenter,
-          //         end: Alignment.bottomCenter,
-          //         colors: [
-          //           Color.fromARGB(255, 2, 117, 0),
-          //           Color.fromARGB(252, 3, 248, 138)
-          //         ]),
-          //   ),
-          // )),
+          SizedBox(
+              child: Image.asset(
+            'assets/images/bg3.jpg',
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          )),
           Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Center(
               child: Text(
@@ -56,6 +65,16 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, '/test');
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalaghaToc(
+                        TypeId: 5,
+                        title: 'حرف آغاز',
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
                   'حرف آغاز',
@@ -75,6 +94,15 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, '/test');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalaghaToc(
+                        TypeId: 1,
+                        title: 'خطبات',
+                      ),
+                    ),
+                  );
                 },
                 child: Text('خطبات', style: ArabicFonts.amiri(fontSize: 30)),
                 style: ElevatedButton.styleFrom(
@@ -91,6 +119,15 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, '/test');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalaghaToc(
+                        TypeId: 2,
+                        title: 'مکتوبات',
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
                   'مکتوبات',
@@ -110,6 +147,15 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, '/test');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalaghaToc(
+                        TypeId: 3,
+                        title: 'حکم و مواعظ',
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
                   'حکم و مواعظ',
@@ -129,6 +175,15 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, '/test');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalaghaToc(
+                        TypeId: 4,
+                        title: 'تشریح طلب کلام',
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
                   'تشریح طلب کلام',
