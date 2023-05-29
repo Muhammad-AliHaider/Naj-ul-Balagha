@@ -7,6 +7,8 @@ import 'Bloc_Balagha_toc/balaghatocStates.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'ReadingPage.dart';
+
 class BalaghaToc extends StatefulWidget {
   final int TypeId;
   final String title;
@@ -108,8 +110,16 @@ class _BalaghaTocState extends State<BalaghaToc> {
                         child: ListTile(
                           title: Text(state.data[index].Description as String),
                           onTap: () {
-                            // Navigator.pushNamed(context, '/balagha',
-                            //     arguments: state.data[index].Id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReadingPage(
+                                  Type: widget.TypeId,
+                                  title: widget.title,
+                                  TypeNo: state.data[index].typeNo as int,
+                                ),
+                              ),
+                            );
                           },
                           leading: Text(state.data[index].typeNo.toString()),
                         ),

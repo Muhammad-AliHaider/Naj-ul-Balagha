@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             Center(
               child: Text(
                 'نهج البلاغة',
-                style: ArabicFonts.amiri(
+                style: ArabicFonts.reemKufi(
                   textStyle: TextStyle(fontSize: 50),
                   color: Color.fromARGB(255, 65, 205, 149),
                 ),
