@@ -38,176 +38,190 @@ class _HomePageState extends State<HomePage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           )),
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Center(
-              child: Text(
-                'نهج البلاغة',
-                // style: ArabicFonts.reemKufi(
-                //   textStyle: TextStyle(fontSize: 50),
-                //   color: Color.fromARGB(255, 65, 205, 149),
-                // ),
-                style: ArabicFonts.amiri(
-                  textStyle: TextStyle(fontSize: 50),
-                  color: Color.fromARGB(255, 65, 205, 149),
+          SingleChildScrollView(
+            child: Column(children: [
+              Center(
+                child: Text(
+                  'نهج البلاغة',
+                  // style: ArabicFonts.reemKufi(
+                  //   textStyle: TextStyle(fontSize: 50),
+                  //   color: Color.fromARGB(255, 65, 205, 149),
+                  // ),
+                  style: ArabicFonts.amiri(
+                    textStyle: TextStyle(fontSize: 50),
+                    color: Color.fromARGB(255, 65, 205, 149),
+                  ),
                 ),
               ),
-            ),
-            Center(
-              child: SizedBox(
-                child: Image.asset(
-                  'assets/images/My project.png',
+              Center(
+                child: SizedBox(
+                  child: Image.asset(
+                    'assets/images/My project.png',
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  height: MediaQuery.of(context).size.width * 0.65,
                 ),
-                width: MediaQuery.of(context).size.width * 0.65,
-                height: MediaQuery.of(context).size.width * 0.65,
               ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/test');
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/test');
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalaghaToc(
-                        TypeId: 5,
-                        title: 'حرف آغاز',
-                        changeLocale: widget.changeLocale,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalaghaToc(
+                          TypeId: 5,
+                          title: 'حرف آغاز',
+                          changeLocale: widget.changeLocale,
+                        ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'حرف آغاز',
+                    style: ArabicFonts.amiri(fontSize: 30),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 65, 205, 149),
+                    minimumSize: Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Text(
-                  'حرف آغاز',
-                  style: ArabicFonts.amiri(fontSize: 30),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 65, 205, 149),
-                  minimumSize: Size(150, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/test');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalaghaToc(
-                        TypeId: 1,
-                        title: 'خطبات',
-                        changeLocale: widget.changeLocale,
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalaghaToc(
+                          TypeId: 1,
+                          title: 'خطبات',
+                          changeLocale: widget.changeLocale,
+                        ),
                       ),
+                    );
+                  },
+                  child: Text('خطبات', style: ArabicFonts.amiri(fontSize: 30)),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 65, 205, 149),
+                    minimumSize: Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Text('خطبات', style: ArabicFonts.amiri(fontSize: 30)),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 65, 205, 149),
-                  minimumSize: Size(150, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/test');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalaghaToc(
-                        TypeId: 2,
-                        title: 'مکتوبات',
-                        changeLocale: widget.changeLocale,
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalaghaToc(
+                          TypeId: 2,
+                          title: 'مکتوبات',
+                          changeLocale: widget.changeLocale,
+                        ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'مکتوبات',
+                    style: ArabicFonts.amiri(fontSize: 30),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 65, 205, 149),
+                    minimumSize: Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Text(
-                  'مکتوبات',
-                  style: ArabicFonts.amiri(fontSize: 30),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 65, 205, 149),
-                  minimumSize: Size(150, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/test');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalaghaToc(
-                        TypeId: 3,
-                        title: 'حکم و مواعظ',
-                        changeLocale: widget.changeLocale,
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalaghaToc(
+                          TypeId: 3,
+                          title: 'حکم و مواعظ',
+                          changeLocale: widget.changeLocale,
+                        ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'حکم و مواعظ',
+                    style: ArabicFonts.amiri(fontSize: 30),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 65, 205, 149),
+                    minimumSize: Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Text(
-                  'حکم و مواعظ',
-                  style: ArabicFonts.amiri(fontSize: 30),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 65, 205, 149),
-                  minimumSize: Size(150, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/test');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalaghaToc(
-                        TypeId: 4,
-                        title: 'تشریح طلب کلام',
-                        changeLocale: widget.changeLocale,
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/test');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalaghaToc(
+                          TypeId: 4,
+                          title: 'تشریح طلب کلام',
+                          changeLocale: widget.changeLocale,
+                        ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'تشریح طلب کلام',
+                    style: ArabicFonts.amiri(fontSize: 30),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 65, 205, 149),
+                    minimumSize: Size(150, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Text(
-                  'تشریح طلب کلام',
-                  style: ArabicFonts.amiri(fontSize: 30),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 65, 205, 149),
-                  minimumSize: Size(150, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -234,7 +248,9 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/NotesView');
+                },
                 icon: const Icon(Icons.notes),
               ),
               IconButton(

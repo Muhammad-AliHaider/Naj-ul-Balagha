@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:naj_ul_balagha/InApplication/Notes/pages/NotesView.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
+import 'InApplication/Notes/pages/NoteAdd.dart';
 import 'InApplication/ProfileOptions.dart';
 import 'InApplication/UpdateUser.dart';
 import 'OnBoarding/Signup.dart';
@@ -55,6 +57,8 @@ class _APPState extends State<APP> {
         '/Profile': (context) => Profile(changeLocale: changeLocale),
         '/UpdateUser': (context) => UpdateUser(),
         '/test': (context) => const MyHomePage(title: "avc"),
+        '/NotesView': (context) => NotesView(changeLocale: changeLocale),
+        '/NoteAdd': (context) => NoteAdd(),
         // '/IndexPage': (context) => BalaghaToc()
       },
       localizationsDelegates: [
