@@ -88,7 +88,7 @@ class _ReadingPageState extends State<ReadingPage> {
               Divider(),
               ListTile(
                 leading: Icon(
-                  Icons.train,
+                  Icons.person,
                 ),
                 title: const Text('Profile'),
                 onTap: () {
