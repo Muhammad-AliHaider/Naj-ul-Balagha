@@ -120,67 +120,77 @@ class _NotesViewState extends State<NotesView> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
                         )),
-                        ListView.builder(
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                  child: ListTile(
-                                onLongPress: () {
-                                  // add update event
-                                  // print("asdasd0");
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NoteUpdate(
-                                        id: state.data[index].id!,
+                        if (state.data.isNotEmpty)
+                          ListView.builder(
+                              itemCount: state.data.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                    child: ListTile(
+                                  onLongPress: () {
+                                    // add update event
+                                    // print("asdasd0");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => NoteUpdate(
+                                          id: state.data[index].id!,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                title: Text(state.data[index].title != null
-                                    ? state.data[index].title!
-                                    : ""),
-                                subtitle: Text(state.data[index].content != null
-                                    ? state.data[index].content!
-                                    : ""),
-                                trailing: IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext innercontext) {
-                                          return AlertDialog(
-                                            title: const Text("Delete Note"),
-                                            content: const Text(
-                                                "Are you sure you want to delete this note?"),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(innercontext);
-                                                  },
-                                                  child: const Text("Cancel")),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    BlocProvider.of<NotesBloc>(
-                                                            context)
-                                                        .add(NotesDeleteEvent(
-                                                            id: state
-                                                                .data[index]
-                                                                .id!));
-                                                    Navigator.pop(innercontext);
-                                                  },
-                                                  child: const Text("Delete"))
-                                            ],
-                                          );
-                                        });
-
-                                    // BlocProvider.of<NotesBloc>(context).add(
-                                    //     NotesDeleteEvent(
-                                    //         id: state.data[index].id! ));
+                                    );
                                   },
-                                ),
-                              ));
-                            }),
+                                  title: Text(state.data[index].title != null
+                                      ? state.data[index].title!
+                                      : ""),
+                                  subtitle: Text(
+                                      state.data[index].content != null
+                                          ? state.data[index].content!
+                                          : ""),
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext innercontext) {
+                                            return AlertDialog(
+                                              title: const Text("Delete Note"),
+                                              content: const Text(
+                                                  "Are you sure you want to delete this note?"),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          innercontext);
+                                                    },
+                                                    child:
+                                                        const Text("Cancel")),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      BlocProvider.of<
+                                                                  NotesBloc>(
+                                                              context)
+                                                          .add(NotesDeleteEvent(
+                                                              id: state
+                                                                  .data[index]
+                                                                  .id!));
+                                                      Navigator.pop(
+                                                          innercontext);
+                                                    },
+                                                    child: const Text("Delete"))
+                                              ],
+                                            );
+                                          });
+
+                                      // BlocProvider.of<NotesBloc>(context).add(
+                                      //     NotesDeleteEvent(
+                                      //         id: state.data[index].id! ));
+                                    },
+                                  ),
+                                ));
+                              }),
+                        if (state.data.isEmpty)
+                          const Center(
+                            child: Text("No Notes"),
+                          ),
                       ],
                     ),
                   ),

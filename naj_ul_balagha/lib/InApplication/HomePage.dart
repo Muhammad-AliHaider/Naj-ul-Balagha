@@ -254,7 +254,9 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.notes),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/BookmarksView');
+                },
                 icon: const Icon(Icons.bookmark),
               ),
               IconButton(

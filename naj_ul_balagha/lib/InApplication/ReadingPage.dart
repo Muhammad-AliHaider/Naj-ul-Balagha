@@ -42,7 +42,7 @@ class _ReadingPageState extends State<ReadingPage> {
                 // FirebaseAuth.instance.signOut();
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_forward),
             )
           ],
         ),
@@ -78,7 +78,7 @@ class _ReadingPageState extends State<ReadingPage> {
                 leading: Icon(
                   Icons.home,
                 ),
-                title: const Text('Page 1'),
+                title: const Text('Home'),
                 onTap: () {
                   // Navigator.popUntil(context, ModalRoute.withName('/HomePage'));
                   Navigator.pushNamedAndRemoveUntil(
@@ -90,7 +90,7 @@ class _ReadingPageState extends State<ReadingPage> {
                 leading: Icon(
                   Icons.train,
                 ),
-                title: const Text('Page 2'),
+                title: const Text('Profile'),
                 onTap: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/Profile', ModalRoute.withName('/HomePage'));
@@ -138,6 +138,65 @@ class _ReadingPageState extends State<ReadingPage> {
                           itemBuilder: (context, index) {
                             return Card(
                               child: ListTile(
+                                onLongPress: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        // <-- SEE HERE
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.75,
+                                            decoration: const BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                top: Radius.circular(25.0),
+                                              ),
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Color.fromARGB(
+                                                      255, 65, 205, 149),
+                                                  Color.fromARGB(
+                                                      84, 73, 236, 201)
+                                                ],
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Card(
+                                                  child: SingleChildScrollView(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Center(
+                                                          child: Text(
+                                                              state.data[index]
+                                                                  .AR
+                                                                  .toString(),
+                                                              style: ArabicFonts
+                                                                  .mirza(
+                                                                      fontSize:
+                                                                          20))),
+                                                      ListTile(
+                                                          title: Text("Hello")),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )),
+                                            ));
+                                      });
+                                },
                                 title: Text(state.data[index].AR.toString(),
                                     style: ArabicFonts.mirza(fontSize: 30)),
                                 subtitle: Text(

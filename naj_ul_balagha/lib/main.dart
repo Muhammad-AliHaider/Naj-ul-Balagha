@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:naj_ul_balagha/InApplication/Bookmarks/Pages/BookmarksView.dart';
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -59,6 +60,8 @@ class _APPState extends State<APP> {
         '/test': (context) => const MyHomePage(title: "avc"),
         '/NotesView': (context) => NotesView(changeLocale: changeLocale),
         '/NoteAdd': (context) => NoteAdd(),
+        '/BookmarksView': (context) =>
+            BookmarksView(changeLocale: changeLocale),
         // '/IndexPage': (context) => BalaghaToc()
       },
       localizationsDelegates: [
