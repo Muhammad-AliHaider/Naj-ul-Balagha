@@ -97,6 +97,16 @@ class _ReadingPageState extends State<ReadingPage> {
                 },
               ),
               Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.auto_stories_rounded,
+                ),
+                title: const Text('پیش گفتار'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/PaishGhuftar');
+                },
+              ),
+              Divider(),
             ],
           ),
         ),
@@ -134,6 +144,7 @@ class _ReadingPageState extends State<ReadingPage> {
                         minScale: 1,
                         maxScale: 4,
                         child: ListView.builder(
+                          padding: const EdgeInsets.only(bottom: 50),
                           itemCount: state.data.length,
                           itemBuilder: (context, index) {
                             return Card(
@@ -198,12 +209,14 @@ class _ReadingPageState extends State<ReadingPage> {
                                       });
                                 },
                                 title: Text(state.data[index].AR.toString(),
-                                    style: ArabicFonts.mirza(fontSize: 30)),
+                                    style: TextStyle(
+                                        fontFamily: 'Mohammdi', fontSize: 30)),
                                 subtitle: Text(
                                     state.data[index].UR != null
                                         ? state.data[index].UR.toString()
                                         : '',
-                                    style: ArabicFonts.amiri(fontSize: 20)),
+                                    style: TextStyle(
+                                        fontFamily: 'Alvi', fontSize: 20)),
                               ),
                             );
                           },

@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'Bookmarks/BookmarksEvents.dart';
 import 'Bookmarks/Repo/BookmarksRepo.dart';
+import 'Muqadmat/Pages/RPHurf-e-Agas.dart';
 import 'ReadingPage.dart';
 
 class BalaghaToc extends StatefulWidget {
@@ -124,6 +125,16 @@ class _BalaghaTocState extends State<BalaghaToc> {
                       },
                     ),
                     Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.auto_stories_rounded,
+                      ),
+                      title: const Text('پیش گفتار'),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/PaishGhuftar');
+                      },
+                    ),
+                    Divider(),
                   ],
                 ),
               ),
@@ -140,7 +151,11 @@ class _BalaghaTocState extends State<BalaghaToc> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          title: Text(state.data[index].Description as String),
+                          title: Text(state.data[index].Description as String,
+                              style: TextStyle(
+                                fontFamily: 'Alvi',
+                                fontSize: 20,
+                              )),
                           onTap: () {
                             if (widget.TypeId != 5) {
                               Navigator.push(
@@ -151,6 +166,17 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                     title: widget.title,
                                     TypeNo: state.data[index].typeNo as int,
                                     totalTypeNo: state.data.length,
+                                  ),
+                                ),
+                              );
+                            }
+                            if (widget.TypeId == 5) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RPHurf(
+                                    Type: (state.data[index].typeNo as int) + 2,
+                                    totalTypeNo: 6,
                                   ),
                                 ),
                               );

@@ -5,6 +5,7 @@ import 'package:naj_ul_balagha/InApplication/Bookmarks/Pages/BookmarksView.dart'
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/PaishGhuftar.dart';
 import 'package:naj_ul_balagha/InApplication/Notes/pages/NotesView.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
@@ -62,6 +63,7 @@ class _APPState extends State<APP> {
         '/NoteAdd': (context) => NoteAdd(),
         '/BookmarksView': (context) =>
             BookmarksView(changeLocale: changeLocale),
+        '/PaishGhuftar': (context) => const PaishGhuftar(),
         // '/IndexPage': (context) => BalaghaToc()
       },
       localizationsDelegates: [
