@@ -250,6 +250,74 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                         ));
                                   });
                             }
+
+                            if (widget.TypeId == 5) {
+                              TypeNo = (state.data[index].typeNo as int) + 2;
+                              Description =
+                                  state.data[index].Description as String;
+                              totalTypeNo = 6;
+                              showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                    // <-- SEE HERE
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25.0),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (BuildContext innercontext) {
+                                    return BlocProvider(
+                                        create: (create) => BookmarksBloc(
+                                            repository: BookmarksRepo()),
+                                        child: BlocListener<BookmarksBloc,
+                                            BookmarkStates>(
+                                          listener: (innercontext, state) {
+                                            if (state is BookmarkBlocMove) {
+                                              ScaffoldMessenger.of(innercontext)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'Added to the bookmark'),
+                                                duration: Duration(seconds: 1),
+                                              ));
+                                              Navigator.pop(innercontext);
+                                            }
+                                          },
+                                          child: BlocBuilder<BookmarksBloc,
+                                                  BookmarkStates>(
+                                              builder: (innercontext, state) {
+                                            if (state is BookmarkBlocLoad) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            } else if (state
+                                                is BookmarkBlocInitial) {
+                                              return ListTile(
+                                                title: Text('Add to Bookmark'),
+                                                onTap: () {
+                                                  BlocProvider.of<
+                                                              BookmarksBloc>(
+                                                          innercontext)
+                                                      .add(AddBookmarksEvent(
+                                                          typeid: widget.TypeId,
+                                                          typeNo: TypeNo,
+                                                          Description:
+                                                              Description,
+                                                          uid: user!.uid,
+                                                          totaltypeNo:
+                                                              totalTypeNo));
+                                                },
+                                                leading: Icon(Icons.bookmark),
+                                              );
+                                            } else {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }
+                                          }),
+                                        ));
+                                  });
+                            }
                           },
                         ),
                       );

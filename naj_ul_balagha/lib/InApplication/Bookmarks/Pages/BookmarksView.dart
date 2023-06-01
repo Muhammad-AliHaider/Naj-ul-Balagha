@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksBloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/Repo/BookmarksRepo.dart';
+import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/RPHurf-e-Agas.dart';
 
 import '../../ReadingPage.dart';
 import '../BookmarksEvents.dart';
@@ -82,19 +83,35 @@ class _BookmarksViewState extends State<BookmarksView> {
                                   case 4:
                                     title = 'تشریح طلب کلام';
                                     break;
+                                  case 5:
+                                    title = 'حرف آغاز';
                                 }
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ReadingPage(
-                                      Type: state.data[index].typeid as int,
-                                      title: title,
-                                      TypeNo: state.data[index].typeNo as int,
-                                      totalTypeNo:
-                                          state.data[index].totaltypeNo as int,
+                                if (state.data[index].typeid != 5) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReadingPage(
+                                        Type: state.data[index].typeid as int,
+                                        title: title,
+                                        TypeNo: state.data[index].typeNo as int,
+                                        totalTypeNo: state
+                                            .data[index].totaltypeNo as int,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
+                                if (state.data[index].typeid == 5) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RPHurf(
+                                        Type: state.data[index].typeNo as int,
+                                        totalTypeNo: state
+                                            .data[index].totaltypeNo as int,
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                               title: Text(state.data[index].Description!),
                               trailing: IconButton(
