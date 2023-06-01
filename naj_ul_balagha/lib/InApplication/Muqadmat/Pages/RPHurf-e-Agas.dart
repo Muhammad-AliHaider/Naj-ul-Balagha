@@ -155,17 +155,18 @@ class _ReadingPageState extends State<RPHurf> {
                                             : '',
                                         style: TextStyle(
                                             fontFamily: 'Mohammdi',
-                                            fontSize: 20)),
+                                            fontSize: 20),
+                                        textAlign: TextAlign.justify),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
-                                      state.data[index].mqur != null
-                                          ? state.data[index].mqur.toString()
-                                          : '',
-                                      style: TextStyle(
-                                          fontFamily: 'Alvi', fontSize: 20),
-                                    ),
+                                        state.data[index].mqur != null
+                                            ? state.data[index].mqur.toString()
+                                            : '',
+                                        style: TextStyle(
+                                            fontFamily: 'Alvi', fontSize: 20),
+                                        textAlign: TextAlign.justify),
                                   ],
                                 ),
                               )),

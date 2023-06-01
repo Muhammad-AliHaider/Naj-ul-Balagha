@@ -210,13 +210,15 @@ class _ReadingPageState extends State<ReadingPage> {
                                 },
                                 title: Text(state.data[index].AR.toString(),
                                     style: TextStyle(
-                                        fontFamily: 'Mohammdi', fontSize: 30)),
+                                        fontFamily: 'Mohammdi', fontSize: 30),
+                                    textAlign: TextAlign.justify),
                                 subtitle: Text(
                                     state.data[index].UR != null
                                         ? state.data[index].UR.toString()
                                         : '',
                                     style: TextStyle(
-                                        fontFamily: 'Alvi', fontSize: 20)),
+                                        fontFamily: 'Alvi', fontSize: 20),
+                                    textAlign: TextAlign.justify),
                               ),
                             );
                           },
