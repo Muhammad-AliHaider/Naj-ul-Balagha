@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_language_fonts/google_language_fonts.dart';
 
-import './Bloc_Balagha_text/BalaghatextEvents.dart';
-import './Bloc_Balagha_text/BalaghatextStates.dart';
-import './Bloc_Balagha_text/BalaghatextBloc.dart';
-import './Bloc_Balagha_text/BalaghatextRepo/BalaghatextRepo.dart';
+import '../BalaghatextEvents.dart';
+import '../BalaghatextStates.dart';
+import '../BalaghatextBloc.dart';
+import '../BalaghatextRepo/BalaghatextRepo.dart';
 
 class ReadingPage extends StatefulWidget {
   final int Type;
@@ -104,6 +104,16 @@ class _ReadingPageState extends State<ReadingPage> {
                 title: const Text('پیش گفتار'),
                 onTap: () {
                   Navigator.pushNamed(context, '/PaishGhuftar');
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.auto_stories_rounded,
+                ),
+                title: const Text('حواشی'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/hawashiView');
                 },
               ),
               Divider(),

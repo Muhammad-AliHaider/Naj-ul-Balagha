@@ -6,7 +6,7 @@ import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/Repo/BookmarksRepo.dart';
 import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/RPHurf-e-Agas.dart';
 
-import '../../ReadingPage.dart';
+import '../../Bloc_Balagha_text/Pages/ReadingPage.dart';
 import '../BookmarksEvents.dart';
 
 class BookmarksView extends StatefulWidget {

@@ -95,6 +95,10 @@ flutter:
     - family: Alvi
       fonts:
         - asset: fonts/Alvi_Nastaleeq_font.ttf
+
+    - family: Amiri
+      fonts:
+        - asset: fonts/Amiri_Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

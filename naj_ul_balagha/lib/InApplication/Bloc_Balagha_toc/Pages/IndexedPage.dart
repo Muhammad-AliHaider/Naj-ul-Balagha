@@ -2,17 +2,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksBloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
 
-import 'Bloc_Balagha_toc/Repo/balaghatocRepo.dart';
-import 'Bloc_Balagha_toc/balaghatocbloc.dart';
-import 'Bloc_Balagha_toc/balaghatocEvents.dart';
-import 'Bloc_Balagha_toc/balaghatocStates.dart';
+import '../Repo/balaghatocRepo.dart';
+import '../balaghatocbloc.dart';
+import '../balaghatocEvents.dart';
+import '../balaghatocStates.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'Bookmarks/BookmarksEvents.dart';
-import 'Bookmarks/Repo/BookmarksRepo.dart';
-import 'Muqadmat/Pages/RPHurf-e-Agas.dart';
-import 'ReadingPage.dart';
+import '../../Bookmarks/BookmarksEvents.dart';
+import '../../Bookmarks/Repo/BookmarksRepo.dart';
+import '../../Muqadmat/Pages/RPHurf-e-Agas.dart';
+import '../../Bloc_Balagha_text/Pages/ReadingPage.dart';
 
 class BalaghaToc extends StatefulWidget {
   final int TypeId;
@@ -132,6 +132,19 @@ class _BalaghaTocState extends State<BalaghaToc> {
                       title: const Text('پیش گفتار'),
                       onTap: () {
                         Navigator.pushNamed(context, '/PaishGhuftar');
+                      },
+                    ),
+                    Divider(),
+
+                    // حواشی
+
+                    ListTile(
+                      leading: Icon(
+                        Icons.auto_stories_rounded,
+                      ),
+                      title: const Text('حواشی'),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/hawashiView');
                       },
                     ),
                     Divider(),

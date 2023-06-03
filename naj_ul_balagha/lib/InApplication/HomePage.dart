@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_language_fonts/google_language_fonts.dart';
-import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
+import 'package:naj_ul_balagha/InApplication/Bloc_Balagha_toc/Pages/IndexedPage.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,18 +40,21 @@ class _HomePageState extends State<HomePage> {
           )),
           SingleChildScrollView(
             child: Column(children: [
-              Center(
-                child: Text(
-                  'نهج البلاغة',
-                  // style: ArabicFonts.reemKufi(
-                  //   textStyle: TextStyle(fontSize: 50),
-                  //   color: Color.fromARGB(255, 65, 205, 149),
-                  // ),
-                  style: ArabicFonts.amiri(
-                    textStyle: TextStyle(fontSize: 50),
-                    color: Color.fromARGB(255, 65, 205, 149),
-                  ),
-                ),
+              const Center(
+                child: Text('نهج البلاغة',
+                    // style: ArabicFonts.reemKufi(
+                    //   textStyle: TextStyle(fontSize: 50),
+                    //   color: Color.fromARGB(255, 65, 205, 149),
+                    // ),
+                    // style: ArabicFonts.amiri(
+                    //   textStyle: TextStyle(fontSize: 50),
+                    //   color: Color.fromARGB(255, 65, 205, 149),
+                    // ),
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 50,
+                      color: Color.fromARGB(255, 65, 205, 149),
+                    )),
               ),
               Center(
                 child: SizedBox(
@@ -82,10 +85,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text(
-                    'حرف آغاز',
-                    style: ArabicFonts.amiri(fontSize: 30),
-                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 65, 205, 149),
                     minimumSize: Size(150, 50),
@@ -93,9 +92,16 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text(
+                    'حرف آغاز',
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 30,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               SizedBox(
@@ -114,7 +120,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text('خطبات', style: ArabicFonts.amiri(fontSize: 30)),
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 65, 205, 149),
                     minimumSize: Size(150, 50),
@@ -122,9 +127,16 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text(
+                    'خطبات',
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 30,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               SizedBox(
@@ -143,10 +155,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text(
-                    'مکتوبات',
-                    style: ArabicFonts.amiri(fontSize: 30),
-                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 65, 205, 149),
                     minimumSize: Size(150, 50),
@@ -154,9 +162,16 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text(
+                    'مکتوبات',
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 30,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               SizedBox(
@@ -175,10 +190,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text(
-                    'حکم و مواعظ',
-                    style: ArabicFonts.amiri(fontSize: 30),
-                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 65, 205, 149),
                     minimumSize: Size(150, 50),
@@ -186,9 +197,16 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text(
+                    'حکم و مواعظ',
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 30,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               SizedBox(
@@ -207,15 +225,18 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text(
-                    'تشریح طلب کلام',
-                    style: ArabicFonts.amiri(fontSize: 30),
-                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 65, 205, 149),
                     minimumSize: Size(150, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Text(
+                    'تشریح طلب کلام',
+                    style: TextStyle(
+                      fontFamily: 'Amiri',
+                      fontSize: 30,
                     ),
                   ),
                 ),
@@ -227,7 +248,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 Color.fromARGB(255, 65, 205, 149),
                 Color.fromARGB(84, 73, 236, 201)

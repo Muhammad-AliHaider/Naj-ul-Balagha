@@ -3,12 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/Pages/BookmarksView.dart';
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
-import 'package:naj_ul_balagha/InApplication/IndexedPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/PaishGhuftar.dart';
 import 'package:naj_ul_balagha/InApplication/Notes/pages/NotesView.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
+import 'InApplication/Hawashi/Pages/HawashiView.dart';
 import 'InApplication/Notes/pages/NoteAdd.dart';
 import 'InApplication/ProfileOptions.dart';
 import 'InApplication/UpdateUser.dart';
@@ -64,6 +64,7 @@ class _APPState extends State<APP> {
         '/BookmarksView': (context) =>
             BookmarksView(changeLocale: changeLocale),
         '/PaishGhuftar': (context) => const PaishGhuftar(),
+        '/hawashiView': (context) => const HawashiView(),
         // '/IndexPage': (context) => BalaghaToc()
       },
       localizationsDelegates: [
@@ -78,9 +79,8 @@ class _APPState extends State<APP> {
       locale: _currentLocale, // OR Locale('ar', 'AE') OR Other RTL locales,
 
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       initialRoute: '/',
     );
   }
