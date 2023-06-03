@@ -160,10 +160,10 @@ class _ReadingPageState extends State<ReadingPage> {
                                       ),
                                       builder: (BuildContext context) {
                                         return Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.75,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .height *
+                                            //     0.75,
                                             decoration: const BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.vertical(
@@ -190,17 +190,36 @@ class _ReadingPageState extends State<ReadingPage> {
                                                       const EdgeInsets.all(8.0),
                                                   child: Column(
                                                     children: [
-                                                      Center(
-                                                          child: Text(
-                                                              state.data[index]
-                                                                  .AR
-                                                                  .toString(),
-                                                              style: ArabicFonts
-                                                                  .mirza(
-                                                                      fontSize:
-                                                                          20))),
+                                                      // Center(
+                                                      //     child: Text(
+                                                      //         state.data[index]
+                                                      //             .AR
+                                                      //             .toString(),
+                                                      //         style: TextStyle(
+                                                      //             fontFamily:
+                                                      //                 'Mohammdi',
+                                                      //             fontSize: 20),
+                                                      //         textAlign:
+                                                      //             TextAlign
+                                                      //                 .justify)),
                                                       ListTile(
-                                                          title: Text("Hello")),
+                                                          title: Text(
+                                                              state.data[index]
+                                                                          .UR !=
+                                                                      null
+                                                                  ? state
+                                                                      .data[
+                                                                          index]
+                                                                      .UR
+                                                                      .toString()
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Alvi',
+                                                                  fontSize: 30),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .justify)),
                                                     ],
                                                   ),
                                                 ),
@@ -212,13 +231,13 @@ class _ReadingPageState extends State<ReadingPage> {
                                     style: TextStyle(
                                         fontFamily: 'Mohammdi', fontSize: 30),
                                     textAlign: TextAlign.justify),
-                                subtitle: Text(
-                                    state.data[index].UR != null
-                                        ? state.data[index].UR.toString()
-                                        : '',
-                                    style: TextStyle(
-                                        fontFamily: 'Alvi', fontSize: 20),
-                                    textAlign: TextAlign.justify),
+                                // subtitle: Text(
+                                //     state.data[index].UR != null
+                                //         ? state.data[index].UR.toString()
+                                //         : '',
+                                //     style: TextStyle(
+                                //         fontFamily: 'Alvi', fontSize: 20),
+                                //     textAlign: TextAlign.justify),
                               ),
                             );
                           },

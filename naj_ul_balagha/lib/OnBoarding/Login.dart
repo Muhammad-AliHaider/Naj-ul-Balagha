@@ -156,7 +156,7 @@ class _LoginState extends State<Login> {
         user = userCredential.user;
         // print("signed in " + user!.displayName!);
         if (user != null) {
-          Navigator.popAndPushNamed(context, "/test");
+          Navigator.popAndPushNamed(context, "/HomePage");
         } else {
           error = true;
         }
@@ -225,156 +225,151 @@ class _LoginState extends State<Login> {
       }
     }
 
-    if (loading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      if (error == true) {
-        return AlertDialog(
-          title: const Text("Error"),
-          content: Text("error Aya hai"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Navigator.pop(context);
+    if (error == true) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: Text("error Aya hai"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Navigator.pop(context);
 
-                error = false;
-              },
-              child: const Text("OK"),
-            )
-          ],
-        );
-      }
-      return SafeArea(
-        child: ListView(
-          children: [
-            // Image.asset('assets/tablet.png'),
-            Image.asset('assets/images/login.png'),
-            SingleChildScrollView(
-                child: Form(
-              key: formkey,
-              child: Column(children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (showError_Email) {
-                        return Error_text_Email;
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (showError_Password) {
-                        return Error_text_Password;
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: InkWell(
-                      onTap: () {
-                        login();
-                      },
-                      child: Container(
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.fromARGB(255, 88, 223, 250),
-                                  Color.fromARGB(85, 73, 195, 236)
-                                ]),
-                          ),
-                          child: const Center(
-                              child: Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )))),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: const [
-                      Expanded(child: Divider(color: Colors.black)),
-                      Text('    OR Login In With    '),
-                      Expanded(
-                          child: Divider(
-                        color: Colors.black,
-                      ))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 75,
-                  height: 75,
-                  child: IconButton(
-                      onPressed: () {
-                        SignInWithGoogle();
-                      },
-                      icon: Image.asset(
-                        'assets/images/icons8-google-500.png',
-                      )),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Text('Don\'t have an account?'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/SignUp');
-                      },
-                      child: const Text('Sign Up'),
-                    )
-                  ],
-                ),
-              ]),
-            ))
-          ],
-        ),
+              error = false;
+            },
+            child: const Text("OK"),
+          )
+        ],
       );
     }
+    return SafeArea(
+      child: ListView(
+        children: [
+          // Image.asset('assets/tablet.png'),
+          Image.asset('assets/images/login.png'),
+          SingleChildScrollView(
+              child: Form(
+            key: formkey,
+            child: Column(children: [
+              const SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (showError_Email) {
+                      return Error_text_Email;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (showError_Password) {
+                      return Error_text_Password;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: InkWell(
+                    onTap: () {
+                      login();
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromARGB(255, 88, 223, 250),
+                                Color.fromARGB(85, 73, 195, 236)
+                              ]),
+                        ),
+                        child: const Center(
+                            child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )))),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: const [
+                    Expanded(child: Divider(color: Colors.black)),
+                    Text('    OR Login In With    '),
+                    Expanded(
+                        child: Divider(
+                      color: Colors.black,
+                    ))
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 75,
+                height: 75,
+                child: IconButton(
+                    onPressed: () {
+                      SignInWithGoogle();
+                    },
+                    icon: Image.asset(
+                      'assets/images/icons8-google-500.png',
+                    )),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Text('Don\'t have an account?'),
+                  TextButton(
+                    key: const ValueKey("SignUp"),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/SignUp');
+                    },
+                    child: const Text('Sign Up'),
+                  )
+                ],
+              ),
+            ]),
+          ))
+        ],
+      ),
+    );
   }
 }

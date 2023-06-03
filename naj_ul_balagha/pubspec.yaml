@@ -47,6 +47,7 @@ dependencies:
   persian_fonts: ^1.0.5
   flutter_localizations:
     sdk: flutter
+  golden_toolkit: ^0.15.0
 
 dev_dependencies:
   flutter_test:
