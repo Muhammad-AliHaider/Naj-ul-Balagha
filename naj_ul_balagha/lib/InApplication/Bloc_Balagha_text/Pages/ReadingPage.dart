@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_language_fonts/google_language_fonts.dart';
 
 import '../BalaghatextEvents.dart';
 import '../BalaghatextStates.dart';
