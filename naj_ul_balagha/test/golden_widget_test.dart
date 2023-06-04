@@ -16,23 +16,34 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 //  end
 
 void main() {
-  // testGoldens('Naj_ul_balagha LoginPage', (tester) async {
-  //   // final builder = DeviceBuilder()
-  //   //   ..overrideDevicesForAllScenarios(devices: [
-  //   //     Device.phone,
-  //   //     Device.iphone11,
-  //   //     Device.tabletPortrait,
-  //   //     Device.tabletLandscape,
-  //   //   ]);
-  //   await tester.pumpWidget(const MyApp());
-  //   await tester.pumpAndSettle();
-  //   // final button = find.byKey(const ValueKey("SignUp"));
+  testGoldens('Naj_ul_balagha LoginPage', (tester) async {
+    // final builder = DeviceBuilder()
+    //   ..overrideDevicesForAllScenarios(devices: [
+    //     Device.phone,
+    //     Device.iphone11,
+    //     Device.tabletPortrait,
+    //     Device.tabletLandscape,
+    //   ]);
+    await tester.runAsync(() async {
+      await tester.pumpWidget(const MyApp());
+      Image widget = find.byType(Image).evaluate().first.widget as Image;
+      ImageProvider image = widget.image;
+      await precacheImage(image, tester.element(find.byType(Image)));
+      await tester.pumpAndSettle();
 
-  //   // expect(button, findsOneWidget);
+      // widget = find.byType(Image).evaluate().first.widget as Image;
+      // image = widget.image;
+      // await precacheImage(image, tester.element(find.byType(Image)));
+      // await tester.pumpAndSettle();
+    });
+    await tester.pumpAndSettle(Duration(seconds: 5));
+    // final button = find.byKey(const ValueKey("SignUp"));
 
-  //   await expectLater(
-  //       find.byType(MyApp), matchesGoldenFile('goldens/login.png'));
-  // });
+    // expect(button, findsOneWidget);
+
+    await expectLater(
+        find.byType(MyApp), matchesGoldenFile('goldens/login.png'));
+  });
   // group("App Navigation", () {
   //   VerifyLogin(tester) async {
   //     await tester.pumpAndSettle();

@@ -245,7 +245,8 @@ class _LoginState extends State<Login> {
       child: ListView(
         children: [
           // Image.asset('assets/tablet.png'),
-          Image.asset('assets/images/login.png'),
+          Image.asset(
+              key: const ValueKey("Login_Center"), 'assets/images/login.png'),
           SingleChildScrollView(
               child: Form(
             key: formkey,

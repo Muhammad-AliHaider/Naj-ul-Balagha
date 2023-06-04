@@ -17,7 +17,10 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarkStates> {
           final List<BookmarksModel> data =
               await repository.ReadAll(uid: event.uid);
           // print(data[0].typeNo);
-          emit(BookmarkBlocSuccess(data));
+          if (data.isEmpty) {
+            emit(BookmarkBlocError("No Bookmarks"));
+          } else
+            emit(BookmarkBlocSuccess(data));
         }
         if (event is AddBookmarksEvent) {
           emit(BookmarkBlocLoad());

@@ -121,7 +121,7 @@ class _ReadingPageState extends State<ReadingPage> {
           ),
         ),
         body: BlocProvider(
-            create: (context) => BalaghaTextBloc(repository: BalaghaTextRepo())
+            create: (context) => BalaghaTextBloc(BalaghaTextRepo())
               ..add(textReadEvent(Type: widget.Type, TypeNo: widget.TypeNo)),
             child: BlocBuilder<BalaghaTextBloc, textStateBloc>(
               builder: (context, state) {

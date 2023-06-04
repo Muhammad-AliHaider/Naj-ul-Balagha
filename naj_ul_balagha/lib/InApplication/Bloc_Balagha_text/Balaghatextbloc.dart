@@ -8,7 +8,7 @@ class BalaghaTextBloc extends Bloc<textEvent, textStateBloc> {
   final BalaghaTextRepo repository;
   // BalagahaTextRepo
 
-  BalaghaTextBloc({required this.repository}) : super(BlocLoad()) {
+  BalaghaTextBloc(this.repository) : super(BlocLoad()) {
     on<textEvent>((event, emit) async {
       emit(BlocLoad());
 

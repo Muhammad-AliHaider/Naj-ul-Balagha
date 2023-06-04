@@ -79,53 +79,58 @@ class _NoteAddState extends State<NoteAdd> {
                           child: Form(
                               key: _formKey,
                               child: Column(children: [
-                                TextFormField(
-                                  controller: _titleController,
-                                  decoration: InputDecoration(
-                                    labelText: 'Title',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 139, 241, 200)),
+                                Card(
+                                  child: TextFormField(
+                                    controller: _titleController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Title',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 139, 241, 200)),
+                                      ),
+                                      suffixIcon: const Icon(Icons.title),
+                                      suffixIconColor: const Color.fromARGB(
+                                          255, 139, 241, 200),
                                     ),
-                                    suffixIcon: const Icon(Icons.title),
-                                    suffixIconColor: const Color.fromARGB(
-                                        255, 139, 241, 200),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter the Title';
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter the Title';
-                                    }
-                                    return null;
-                                  },
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                TextFormField(
-                                  controller: _contentController,
-                                  keyboardType: TextInputType.multiline,
-                                  decoration: InputDecoration(
-                                    labelText: 'Content',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 139, 241, 200)),
+                                Card(
+                                  child: TextFormField(
+                                    controller: _contentController,
+                                    keyboardType: TextInputType.multiline,
+                                    decoration: InputDecoration(
+                                      labelText: 'Content',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 139, 241, 200)),
+                                      ),
+                                      suffixIcon:
+                                          const Icon(Icons.content_paste),
+                                      suffixIconColor: const Color.fromARGB(
+                                          255, 139, 241, 200),
                                     ),
-                                    suffixIcon: const Icon(Icons.content_paste),
-                                    suffixIconColor: const Color.fromARGB(
-                                        255, 139, 241, 200),
+                                    maxLines: 9,
+                                    minLines: 9,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter the Content';
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  maxLines: 9,
-                                  minLines: 9,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter the Content';
-                                    }
-                                    return null;
-                                  },
                                 ),
                               ])),
                         ),

@@ -33,6 +33,7 @@ class UserBloc extends Bloc<user_Event, StateBlock> {
         if (event is readUser_Event) {
           emit(BlocLoad());
           final UserModel data = await _userRepo.Read_User(event.uid);
+          print(data);
           List<UserModel> data2 = [data];
           emit(BlocSuccess(data2));
         }
@@ -45,7 +46,7 @@ class UserBloc extends Bloc<user_Event, StateBlock> {
 
         if (event is userUpdate_Event) {
           emit(BlocLoad());
-          await _userRepo.UpdateUser(event.Email, event.Password,
+          final data = await _userRepo.UpdateUser(event.Email, event.Password,
               event.UserName, event.BirthDate, event.id);
           // List<UserModel> data = [];
           emit(BlocMove());
