@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:naj_ul_balagha/InApplication/Bloc_Balagha_toc/Pages/IndexedPage.dart';
-import 'package:persian_fonts/persian_fonts.dart';
 
 class HomePage extends StatefulWidget {
   final Function(Locale) changeLocale;
