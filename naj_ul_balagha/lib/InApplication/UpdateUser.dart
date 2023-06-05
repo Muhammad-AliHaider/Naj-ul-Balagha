@@ -8,13 +8,20 @@ import '../OnBoarding/bloc/UserStates.dart';
 import '../OnBoarding/bloc/UserRepo.dart';
 
 class UpdateUser extends StatefulWidget {
+  final UserRepo? repo;
+  final FirebaseAuth? auth;
+  const UpdateUser({Key? key, this.repo, this.auth}) : super(key: key);
   @override
   State<UpdateUser> createState() => _UpdateUserState();
 }
 
 class _UpdateUserState extends State<UpdateUser> {
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user = (widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser);
+
+    UserRepo repository = (widget.repo == null ? UserRepo() : widget.repo!);
     // user.updateDisplayName
     // user.updatePassword
     // user.updateEmail
@@ -114,7 +121,7 @@ class _UpdateUserState extends State<UpdateUser> {
         });
 
         if (user != null) {
-          print(user.uid);
+          print(widget.auth == null ? user.uid : "1");
 
           user.updateDisplayName(UserName);
           user.updateEmail(email);
@@ -125,7 +132,7 @@ class _UpdateUserState extends State<UpdateUser> {
               Password: password,
               UserName: UserName,
               BirthDate: BirthDate,
-              id: user.uid));
+              id: widget.auth == null ? user.uid : "1"));
         } else {
           setState(() {
             loading = false;
@@ -150,8 +157,8 @@ class _UpdateUserState extends State<UpdateUser> {
         backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
       body: BlocProvider(
-        create: (context) =>
-            UserBloc(UserRepo())..add(readUser_Event(uid: user!.uid)),
+        create: (context) => UserBloc(repository)
+          ..add(readUser_Event(uid: widget.auth == null ? user!.uid : '1')),
         child: BlocListener<UserBloc, StateBlock>(
           listener: (context, state) {
             if (state is BlocMove) {

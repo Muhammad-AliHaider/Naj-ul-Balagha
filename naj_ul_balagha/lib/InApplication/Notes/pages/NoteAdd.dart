@@ -8,7 +8,9 @@ import '../NotesStates.dart';
 import '../Repo/NotesRepo.dart';
 
 class NoteAdd extends StatefulWidget {
-  const NoteAdd({Key? key}) : super(key: key);
+  final NotesRepo? repo;
+  final FirebaseAuth? auth;
+  const NoteAdd({Key? key, this.repo, this.auth}) : super(key: key);
 
   @override
   _NoteAddState createState() => _NoteAddState();
@@ -18,9 +20,13 @@ class _NoteAddState extends State<NoteAdd> {
   static final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user = (widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser);
     TextEditingController _titleController = TextEditingController();
     TextEditingController _contentController = TextEditingController();
+
+    NotesRepo repository = (widget.repo == null ? NotesRepo() : widget.repo!);
 
     HandleAdd(context) {
       if (_formKey.currentState!.validate()) {
@@ -42,7 +48,7 @@ class _NoteAddState extends State<NoteAdd> {
         backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
       body: BlocProvider(
-        create: (context) => NotesBloc(repository: NotesRepo()),
+        create: (context) => NotesBloc(repository: repository),
         child: BlocListener<NotesBloc, NotesStates>(
           listener: (context, state) {
             if (state is BlocMove) {

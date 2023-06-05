@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../MuqadamatBloc.dart';
 
 class PaishGhuftar extends StatefulWidget {
-  const PaishGhuftar({Key? key}) : super(key: key);
+  final MuqadamatRepo? repo;
+  const PaishGhuftar({Key? key, this.repo}) : super(key: key);
 
   @override
   _PaishGhuftarState createState() => _PaishGhuftarState();
@@ -16,6 +17,9 @@ class PaishGhuftar extends StatefulWidget {
 class _PaishGhuftarState extends State<PaishGhuftar> {
   @override
   Widget build(BuildContext context) {
+    MuqadamatRepo? repository =
+        widget.repo == null ? MuqadamatRepo() : widget.repo!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("پیش گفتار"),
@@ -24,7 +28,7 @@ class _PaishGhuftarState extends State<PaishGhuftar> {
         backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
       body: BlocProvider(
-        create: (create) => MuqadamatBloc(repository: MuqadamatRepo())
+        create: (create) => MuqadamatBloc(repository: repository)
           ..add(const MuqadamatReadEvent(Type: 1)),
         child: BlocBuilder<MuqadamatBloc, MuqadamatStates>(
           builder: (context, state) {

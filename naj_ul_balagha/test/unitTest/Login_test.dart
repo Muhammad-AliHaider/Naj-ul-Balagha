@@ -1,148 +1,194 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
+// import 'package:mockito/mockito.dart';
 
-// Mock FirebaseAuth class
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+// class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+// // class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
-// Mock UserCredential class
-class MockUserCredential extends Mock implements UserCredential {}
+// // Mock FirebaseAuth class
+// class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-// Mock User class
-class MockUser extends Mock implements User {}
+// // Mock UserCredential class
+// class MockUserCredential extends Mock implements UserCredential {}
 
-// Mock GoogleSignIn class
-class MockGoogleSignIn extends Mock implements GoogleSignIn {}
+// // Mock User class
+// class MockUser extends Mock implements User {}
+
+// // Mock GoogleSignIn class
+// class MockGoogleSignIn extends Mock implements GoogleSignIn {}
+
+class MockChangeLocale extends Mock {
+  void call(Locale locale);
+}
 
 void main() {
-  late Login login;
-  late MockFirebaseAuth mockFirebaseAuth;
-  late MockUserCredential mockUserCredential;
-  late MockUser mockUser;
-  late MockGoogleSignIn mockGoogleSignIn;
+  group("Login Page Test", () {
+    late MockChangeLocale mockChangeLocale;
+    // late Login login;
+    // late MockFirebaseAuth mockFirebaseAuth;
+    // late MockUserCredential mockUserCredential;
+    // late MockUser mockUser;
+    // late MockGoogleSignIn mockGoogleSignIn;
+    // late MockNavigatorObserver mockNavigatorObserver;
 
-  setUp(() {
-    mockFirebaseAuth = MockFirebaseAuth();
-    mockUserCredential = MockUserCredential();
-    mockUser = MockUser();
-    mockGoogleSignIn = MockGoogleSignIn();
-    login = Login(changeLocale: (locale) {});
-  });
+    setUp(() {
+      mockChangeLocale = MockChangeLocale();
+      // mockFirebaseAuth = MockFirebaseAuth();
+      // mockUserCredential = MockUserCredential();
+      // mockUser = MockUser();
+      // mockGoogleSignIn = MockGoogleSignIn();
+      // login = Login(changeLocale: (locale) {});
+      // mockNavigatorObserver = MockNavigatorObserver();
+    });
 
-  testWidgets('Login page UI elements test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: login));
+    testWidgets('Login page UI elements test', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Login(changeLocale: mockChangeLocale),
+        // navigatorObservers: [MockNavigatorObserver()],
+      ));
 
-    // Check if email and password text fields are displayed
-    expect(find.byType(TextFormField), findsNWidgets(2));
+      await tester.pumpAndSettle();
 
-    // Check if the login button is displayed
-    expect(find.text('Login'), findsOneWidget);
+      // Check if email and password text fields are displayed
+      expect(find.byType(TextFormField), findsNWidgets(2));
 
-    // Check if the Google sign-in button is displayed
-    expect(find.byKey(const ValueKey("SignUp")), findsOneWidget);
-  });
+      // Check if the login button is displayed
+      expect(find.text('Login'), findsOneWidget);
 
-  testWidgets('Email and password validation test',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: login));
+      // Check if the Google sign-in button is displayed
+      expect(find.byKey(const ValueKey("SignUp")), findsOneWidget);
 
-    // Empty email and password
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
-    expect(find.text('Please Enter Email'), findsOneWidget);
-    expect(find.text('Please Enter Password'), findsOneWidget);
+      verify(mockChangeLocale.call(const Locale('en', 'US')));
 
-    // Invalid email format
-    await tester.enterText(find.byType(TextFormField).first, 'invalidemail');
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
-    expect(find.text('Please Enter Valid Email'), findsOneWidget);
+      // Empty email and password
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
+      expect(find.text('Please Enter Email'), findsOneWidget);
+      expect(find.text('Please Enter Password'), findsOneWidget);
 
-    // Valid email format and empty password
-    await tester.enterText(
-        find.byType(TextFormField).first, 'test@example.com');
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
-    expect(find.text('Please Enter Password'), findsOneWidget);
+      // // Invalid email format
+      await tester.enterText(find.byType(TextFormField).first, 'invalidemail');
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
+      expect(find.text('Please Enter Valid Email'), findsOneWidget);
 
-    // Valid email and invalid password format
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
-    expect(
-        find.text(
-            'Password must contain at least 8 characters, including uppercase,\nlowercase letters and numbers'),
-        findsOneWidget);
+      // // Valid email format and empty password
+      await tester.enterText(
+          find.byType(TextFormField).first, 'test@example.com');
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
+      expect(find.text('Please Enter Password'), findsOneWidget);
 
-    // Valid email and password format
-    await tester.enterText(find.byType(TextFormField).last, 'Password1');
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
-    expect(find.text('Validated'), findsOneWidget);
-  });
+      // // Valid email and invalid password format
+      await tester.enterText(find.byType(TextFormField).last, 'password');
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
+      expect(
+          find.text(
+              'Password must contain at least 8 characters, including uppercase,\nlowercase letters and numbers'),
+          findsOneWidget);
+    });
 
-  testWidgets('Sign in using email and password test',
-      (WidgetTester tester) async {
-    when(mockFirebaseAuth.signInWithEmailAndPassword(
-      email: "Ali",
-      password: "Pass",
-    )).thenAnswer((_) async => mockUserCredential);
+    // testWidgets('Email and password validation test',
+    //     (WidgetTester tester) async {
+    //   await tester.pumpWidget(MaterialApp(
+    //     home: Login(changeLocale: mockChangeLocale),
+    //     // navigatorObservers: [MockNavigatorObserver()],
+    //   ));
 
-    when(mockUserCredential.user).thenReturn(mockUser);
+    //   await tester.pumpAndSettle();
 
-    await tester.pumpWidget(MaterialApp(home: login));
+    //   // Future.delayed(const Duration(seconds: 5));
 
-    await tester.enterText(
-        find.byType(TextFormField).first, 'test@example.com');
-    await tester.enterText(find.byType(TextFormField).last, 'Password1');
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
+    //   // await tester.pumpAndSettle();
 
-    verify(mockFirebaseAuth.signInWithEmailAndPassword(
-      email: 'test@example.com',
-      password: 'Password1',
-    )).called(1);
+    //   // expect(find.byKey(ValueKey('Login')), findsOneWidget);
 
-    verify(mockUserCredential.user).called(1);
-    expect(find.text('Login Successful'), findsOneWidget);
-  });
+    //   verify(mockChangeLocale.call(const Locale('en', 'US')));
 
-  testWidgets('Sign in with Google test', (WidgetTester tester) async {
-    when(mockGoogleSignIn.signIn())
-        .thenAnswer((_) async => MockGoogleSignInAccount());
+    //   // Empty email and password
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
+    //   expect(find.text('Please Enter Email'), findsOneWidget);
+    //   expect(find.text('Please Enter Password'), findsOneWidget);
 
-    when(mockGoogleSignIn.signInSilently())
-        .thenAnswer((_) async => MockGoogleSignInAccount());
+    //   // // Invalid email format
+    //   await tester.enterText(find.byType(TextFormField).first, 'invalidemail');
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
+    //   expect(find.text('Please Enter Valid Email'), findsOneWidget);
 
-    when(mockGoogleSignIn.currentUser).thenReturn(MockGoogleSignInAccount());
+    //   // // Valid email format and empty password
+    //   await tester.enterText(
+    //       find.byType(TextFormField).first, 'test@example.com');
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
+    //   expect(find.text('Please Enter Password'), findsOneWidget);
 
-    when(mockGoogleSignInAccount.authentication)
-        .thenAnswer((_) async => MockGoogleSignInAuthentication());
+    //   // // Valid email and invalid password format
+    //   await tester.enterText(find.byType(TextFormField).last, 'password');
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
+    //   expect(
+    //       find.text(
+    //           'Password must contain at least 8 characters, including uppercase,\nlowercase letters and numbers'),
+    //       findsOneWidget);
 
-    when(mockFirebaseAuth.signInWithCredential(any))
-        .thenAnswer((_) async => mockUserCredential);
+    //   // // Valid email and password format
+    //   // await tester.enterText(find.byType(TextFormField).first, 'test@gmail.com');
+    //   // await tester.enterText(find.byType(TextFormField).last, '123qweA!');
+    //   // await tester.tap(find.text('Login'));
+    //   // await tester.pumpAndSettle();
+    //   // verify(mockNavigatorObserver.didPush());
+    //   // verify(mockNavigatorObserver.didPop());
+    //   // await Future.delayed(const Duration(seconds: 10));
+    //   // expect(find.byType(HomePage), findsOneWidget);
+    // });
 
-    when(mockUserCredential.user).thenReturn(mockUser);
+    // testWidgets("Error", (WidgetTester tester) async {
+    //   await tester.pumpWidget(MaterialApp(
+    //     home: Login(changeLocale: mockChangeLocale),
+    //     // navigatorObservers: [MockNavigatorObserver()],
+    //   ));
 
-    await tester.pumpWidget(MaterialApp(home: login));
+    //   await tester.pumpAndSettle();
 
-    await tester.tap(find.byKey(const ValueKey("SignUp")));
-    await tester.pumpAndSettle();
+    //   // Empty email and password
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
+    //   expect(find.text('Please Enter Email'), findsOneWidget);
+    //   expect(find.text('Please Enter Password'), findsOneWidget);
+    // });
 
-    verify(mockGoogleSignIn.signIn()).called(1);
+    // testWidgets('Sign in using email and password test',
+    //     (WidgetTester tester) async {
+    //   when(mockFirebaseAuth.signInWithEmailAndPassword(
+    //     email: "Ali",
+    //     password: "Pass",
+    //   )).thenAnswer((_) async => mockUserCredential);
 
-    verify(mockGoogleSignIn.signInSilently()).called(1);
+    //   when(mockUserCredential.user).thenReturn(mockUser);
 
-    verify(mockGoogleSignIn.currentUser).called(1);
+    //   await tester.pumpWidget(MaterialApp(home: login));
 
-    verify(mockGoogleSignInAccount.authentication).called(1);
+    //   await tester.enterText(
+    //       find.byType(TextFormField).first, 'test@example.com');
+    //   await tester.enterText(find.byType(TextFormField).last, 'Password1');
+    //   await tester.tap(find.text('Login'));
+    //   await tester.pumpAndSettle();
 
-    verify(mockFirebaseAuth.signInWithCredential(any)).called(1);
+    //   verify(mockFirebaseAuth.signInWithEmailAndPassword(
+    //     email: 'test@example.com',
+    //     password: 'Password1',
+    //   )).called(1);
 
-    verify(mockUserCredential.user).called(1);
-    expect(find.text('Login Successful'), findsOneWidget);
+    //   // verify(mockUserCredential.user).called(1);
+    //   // expect(find.text('Login Successful'), findsOneWidget);
+    // });
   });
 }

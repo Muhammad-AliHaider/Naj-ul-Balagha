@@ -8,7 +8,10 @@ import '../OnBoarding/bloc/UserRepo.dart';
 
 class Profile extends StatefulWidget {
   final Function(Locale) changeLocale;
-  const Profile({Key? key, required this.changeLocale}) : super(key: key);
+  final UserRepo? repo;
+  final FirebaseAuth? auth;
+  const Profile({Key? key, required this.changeLocale, this.repo, this.auth})
+      : super(key: key);
 
   @override
   _Profile createState() => _Profile();
@@ -30,11 +33,14 @@ class _Profile extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    FirebaseAuth _auth =
+        (widget.auth == null ? FirebaseAuth.instance : widget.auth!);
+    User? user = _auth.currentUser;
+    UserRepo repository = (widget.repo == null ? UserRepo() : widget.repo!);
 
     HandleDelete(context, uid) async {
       try {
-        await FirebaseAuth.instance.currentUser?.delete();
+        await _auth.currentUser?.delete();
         BlocProvider.of<UserBloc>(context).add(userDelete_Event(uid: uid));
       } catch (e) {
         print(e);
@@ -54,7 +60,7 @@ class _Profile extends State<Profile> {
         backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
       body: BlocProvider(
-        create: (create) => UserBloc(UserRepo()),
+        create: (create) => UserBloc(repository),
         child: BlocListener<UserBloc, StateBlock>(
           listener: (context, state) => {
             if (state is BlocSuccess)
@@ -150,7 +156,7 @@ class _Profile extends State<Profile> {
                         child: ElevatedButton(
                           onPressed: () {
                             // Navigator.pushNamed(context, '/test');
-                            FirebaseAuth.instance.signOut();
+                            _auth.signOut();
                             Navigator.pushNamedAndRemoveUntil(
                                 context, "/", (route) => false);
                           },

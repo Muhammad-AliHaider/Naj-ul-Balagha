@@ -12,17 +12,30 @@ class RPHurf extends StatefulWidget {
   final int Type;
   // final String title;
   final int totalTypeNo;
-  const RPHurf({Key? key, required this.Type, required this.totalTypeNo})
+  final MuqadamatRepo? repo;
+  final FirebaseAuth? auth;
+  const RPHurf(
+      {Key? key,
+      required this.Type,
+      required this.totalTypeNo,
+      this.repo,
+      this.auth})
       : super(key: key);
   @override
   _ReadingPageState createState() => _ReadingPageState();
 }
 
 class _ReadingPageState extends State<RPHurf> {
-  static User? user = FirebaseAuth.instance.currentUser;
+  // static User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    MuqadamatRepo? repository =
+        widget.repo == null ? MuqadamatRepo() : widget.repo!;
+    User? user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('حرف آغاز'),
@@ -49,9 +62,11 @@ class _ReadingPageState extends State<RPHurf> {
                 // <-- SEE HERE
                 decoration:
                     BoxDecoration(color: Color.fromARGB(255, 65, 205, 149)),
-                accountName: Text(user!.displayName.toString()),
+                accountName: Text(widget.auth == null
+                    ? user!.displayName.toString()
+                    : "test1"),
                 accountEmail: Text(
-                  user!.email.toString(),
+                  widget.auth == null ? user!.email.toString() : "test2",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -105,7 +120,7 @@ class _ReadingPageState extends State<RPHurf> {
           ),
         ),
         body: BlocProvider(
-            create: (context) => MuqadamatBloc(repository: MuqadamatRepo())
+            create: (context) => MuqadamatBloc(repository: repository)
               ..add(MuqadamatReadEvent(Type: widget.Type)),
             child: BlocBuilder<MuqadamatBloc, MuqadamatStates>(
               builder: (context, state) {

@@ -9,7 +9,10 @@ import '../Repo/NotesRepo.dart';
 
 class NoteUpdate extends StatefulWidget {
   final String id;
-  const NoteUpdate({Key? key, required this.id}) : super(key: key);
+  final NotesRepo? repo;
+  final FirebaseAuth? auth;
+  const NoteUpdate({Key? key, required this.id, this.auth, this.repo})
+      : super(key: key);
 
   @override
   _NoteUpdateState createState() => _NoteUpdateState();
@@ -19,7 +22,10 @@ class _NoteUpdateState extends State<NoteUpdate> {
   static final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
+    NotesRepo? repository = widget.repo == null ? NotesRepo() : widget.repo!;
     TextEditingController _titleController = TextEditingController();
     TextEditingController _contentController = TextEditingController();
 
@@ -29,7 +35,7 @@ class _NoteUpdateState extends State<NoteUpdate> {
           NotesUpdateEvent(
             title: _titleController.text,
             content: _contentController.text,
-            uid: user!.uid,
+            uid: widget.auth == null ? user!.uid : "1",
             id: widget.id,
           ),
         );

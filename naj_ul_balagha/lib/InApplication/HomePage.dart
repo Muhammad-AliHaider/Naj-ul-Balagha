@@ -69,9 +69,10 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: ElevatedButton(
+                  key: ValueKey('button1'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
-
+                    print("Button Daba");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -105,6 +106,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: ElevatedButton(
+                  key: ValueKey('button2'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
                     Navigator.push(
@@ -140,6 +142,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: ElevatedButton(
+                  key: ValueKey('button3'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
                     Navigator.push(
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: ElevatedButton(
+                  key: ValueKey('button4'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
                     Navigator.push(
@@ -210,6 +214,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: ElevatedButton(
+                  key: ValueKey('button5'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
                     Navigator.push(
@@ -267,18 +272,21 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
+                key: ValueKey('NotesButton'),
                 onPressed: () {
                   Navigator.pushNamed(context, '/NotesView');
                 },
                 icon: const Icon(Icons.notes),
               ),
               IconButton(
+                key: ValueKey('BookmarksButton'),
                 onPressed: () {
                   Navigator.pushNamed(context, '/BookmarksView');
                 },
                 icon: const Icon(Icons.bookmark),
               ),
               IconButton(
+                key: ValueKey('ProfileButton'),
                 onPressed: () {
                   Navigator.pushNamed(context, '/Profile');
                 },

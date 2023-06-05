@@ -267,6 +267,7 @@ class _SignUpState extends State<SignUp> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    key: ValueKey("email_field"),
                                     controller: emailController,
                                     decoration: InputDecoration(
                                       labelText: 'Email',
@@ -290,6 +291,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   const SizedBox(height: 10),
                                   TextFormField(
+                                    key: ValueKey('password_field'),
                                     controller: passwordController,
                                     obscureText: true,
                                     decoration: InputDecoration(
@@ -314,6 +316,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   const SizedBox(height: 10),
                                   TextFormField(
+                                    key: ValueKey('confirm_password_field'),
                                     controller: confirmPasswordController,
                                     obscureText: true,
                                     decoration: InputDecoration(
@@ -339,6 +342,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   const SizedBox(height: 10),
                                   TextFormField(
+                                    key: ValueKey('username_field'),
                                     controller: userNameController,
                                     decoration: InputDecoration(
                                       labelText: 'UserName',
@@ -362,6 +366,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   const SizedBox(height: 10),
                                   TextFormField(
+                                    key: ValueKey('birthdate_field'),
                                     readOnly: true,
                                     controller: dateInput,
                                     decoration: InputDecoration(
@@ -407,6 +412,7 @@ class _SignUpState extends State<SignUp> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: InkWell(
+                                        key: ValueKey('sign_up_button'),
                                         onTap: () {
                                           SignUp(context);
                                         },

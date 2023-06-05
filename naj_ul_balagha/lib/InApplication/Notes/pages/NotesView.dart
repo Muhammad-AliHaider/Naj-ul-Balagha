@@ -10,7 +10,10 @@ import '../Repo/NotesRepo.dart';
 
 class NotesView extends StatefulWidget {
   final Function(Locale) changeLocale;
-  NotesView({Key? key, required this.changeLocale}) : super(key: key);
+  final NotesRepo? repo;
+  final FirebaseAuth? auth;
+  NotesView({Key? key, required this.changeLocale, this.auth, this.repo})
+      : super(key: key);
 
   @override
   _NotesViewState createState() => _NotesViewState();
@@ -33,11 +36,14 @@ class _NotesViewState extends State<NotesView> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
+    NotesRepo? repository = widget.repo == null ? NotesRepo() : widget.repo!;
 
     return BlocProvider(
         create: (context) => NotesBloc(repository: NotesRepo())
-          ..add(readAllNotesEvent(uid: user!.uid)),
+          ..add(readAllNotesEvent(uid: widget.auth == null ? user!.uid : "1")),
         child: BlocListener<NotesBloc, NotesStates>(
           listener: (context, state) {
             if (state is BlocMove) {
@@ -108,8 +114,8 @@ class _NotesViewState extends State<NotesView> {
                   ),
                   body: RefreshIndicator(
                     onRefresh: () async {
-                      BlocProvider.of<NotesBloc>(context)
-                          .add(readAllNotesEvent(uid: user!.uid));
+                      BlocProvider.of<NotesBloc>(context).add(readAllNotesEvent(
+                          uid: widget.auth == null ? user!.uid : "1"));
                     },
                     child: Stack(
                       children: [

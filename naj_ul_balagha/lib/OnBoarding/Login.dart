@@ -168,10 +168,8 @@ class _LoginState extends State<Login> {
 
     HandleValidate_Email() {
       if (emailController.text.isEmpty) {
-        setState(() {
-          showError_Email = true;
-          Error_text_Email = 'Please Enter Email';
-        });
+        showError_Email = true;
+        Error_text_Email = 'Please Enter Email';
       } else if (!_emailRegex.hasMatch(emailController.text)) {
         showError_Email = true;
         Error_text_Email = 'Please Enter Valid Email';
@@ -218,7 +216,7 @@ class _LoginState extends State<Login> {
           setState(() {
             loading = false;
           });
-          Navigator.pushNamed(context, "/test");
+          // Navigator.pushNamed(context, "/test");
         }
       } else {
         print('Not Validated');
@@ -299,6 +297,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
+                    key: ValueKey('Login'),
                     onTap: () {
                       login();
                     },

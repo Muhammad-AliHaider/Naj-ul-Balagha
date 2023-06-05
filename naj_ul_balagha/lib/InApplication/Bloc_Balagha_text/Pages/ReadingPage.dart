@@ -12,22 +12,30 @@ class ReadingPage extends StatefulWidget {
   final int TypeNo;
   final String title;
   final int totalTypeNo;
+  final BalaghaTextRepo? repo;
+  final FirebaseAuth? auth;
   const ReadingPage(
       {Key? key,
       required this.Type,
       required this.TypeNo,
       required this.title,
-      required this.totalTypeNo})
+      required this.totalTypeNo,
+      this.auth,
+      this.repo})
       : super(key: key);
   @override
   _ReadingPageState createState() => _ReadingPageState();
 }
 
 class _ReadingPageState extends State<ReadingPage> {
-  static User? user = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
+    User? user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
+    BalaghaTextRepo? repository =
+        widget.repo == null ? BalaghaTextRepo() : widget.repo!;
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -54,9 +62,11 @@ class _ReadingPageState extends State<ReadingPage> {
                 // <-- SEE HERE
                 decoration:
                     BoxDecoration(color: Color.fromARGB(255, 65, 205, 149)),
-                accountName: Text(user!.displayName.toString()),
+                accountName: Text(widget.auth == null
+                    ? user!.displayName.toString()
+                    : "text"),
                 accountEmail: Text(
-                  user!.email.toString(),
+                  widget.auth == null ? user!.displayName.toString() : "text23",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

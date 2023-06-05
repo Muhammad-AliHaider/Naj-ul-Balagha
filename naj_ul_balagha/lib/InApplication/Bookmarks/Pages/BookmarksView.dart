@@ -10,16 +10,18 @@ import '../../Bloc_Balagha_text/Pages/ReadingPage.dart';
 import '../BookmarksEvents.dart';
 
 class BookmarksView extends StatefulWidget {
+  final FirebaseAuth? auth;
+  final BookmarksRepo? repo;
   final Function(Locale) changeLocale;
-  const BookmarksView({Key? key, required this.changeLocale}) : super(key: key);
+  const BookmarksView(
+      {Key? key, required this.changeLocale, this.auth, this.repo})
+      : super(key: key);
 
   @override
   _BookmarksViewState createState() => _BookmarksViewState();
 }
 
 class _BookmarksViewState extends State<BookmarksView> {
-  static User? user = FirebaseAuth.instance.currentUser;
-
   Future<void> _initLocale() async {
     await Future.delayed(Duration.zero); // Delay execution until after build
     widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
@@ -35,6 +37,13 @@ class _BookmarksViewState extends State<BookmarksView> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
+
+    BookmarksRepo repository =
+        widget.repo == null ? BookmarksRepo() : widget.repo!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("بک مارکس"),
@@ -43,8 +52,9 @@ class _BookmarksViewState extends State<BookmarksView> {
         backgroundColor: Color.fromARGB(255, 65, 205, 149),
       ),
       body: BlocProvider(
-          create: (create) => BookmarksBloc(repository: BookmarksRepo())
-            ..add(BookMarksReadAllEvent(uid: user!.uid)),
+          create: (create) => BookmarksBloc(repository: repository)
+            ..add(BookMarksReadAllEvent(
+                uid: widget.auth == null ? user!.uid : "1")),
           child: BlocListener<BookmarksBloc, BookmarkStates>(
               listener: (context, state) {
             if (state is BookmarkBlocMove) {
@@ -133,8 +143,9 @@ class _BookmarksViewState extends State<BookmarksView> {
             if (state is BookmarkBlocError) {
               return RefreshIndicator(
                   onRefresh: () async {
-                    BlocProvider.of<BookmarksBloc>(context)
-                        .add(BookMarksReadAllEvent(uid: user!.uid));
+                    BlocProvider.of<BookmarksBloc>(context).add(
+                        BookMarksReadAllEvent(
+                            uid: widget.auth == null ? user!.uid : "1"));
                   },
                   child: Stack(
                     children: [
@@ -163,8 +174,9 @@ class _BookmarksViewState extends State<BookmarksView> {
             } else {
               return RefreshIndicator(
                   onRefresh: () async {
-                    BlocProvider.of<BookmarksBloc>(context)
-                        .add(BookMarksReadAllEvent(uid: user!.uid));
+                    BlocProvider.of<BookmarksBloc>(context).add(
+                        BookMarksReadAllEvent(
+                            uid: widget.auth == null ? user!.uid : "1"));
                   },
                   child: Stack(
                     children: [

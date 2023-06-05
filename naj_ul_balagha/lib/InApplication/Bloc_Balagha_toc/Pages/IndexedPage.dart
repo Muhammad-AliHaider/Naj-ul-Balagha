@@ -17,13 +17,17 @@ import '../../Bloc_Balagha_text/Pages/ReadingPage.dart';
 class BalaghaToc extends StatefulWidget {
   final int TypeId;
   final String title;
+  final BalaghatocRepo? repo;
+  final FirebaseAuth? auth;
   final Function(Locale) changeLocale;
 
   const BalaghaToc(
       {Key? key,
       required this.TypeId,
       required this.title,
-      required this.changeLocale})
+      required this.changeLocale,
+      this.repo,
+      this.auth})
       : super(key: key);
 
   @override
@@ -31,8 +35,6 @@ class BalaghaToc extends StatefulWidget {
 }
 
 class _BalaghaTocState extends State<BalaghaToc> {
-  static User? user = FirebaseAuth.instance.currentUser;
-
   Future<void> _initLocale() async {
     await Future.delayed(Duration.zero); // Delay execution until after build
     widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
@@ -52,9 +54,15 @@ class _BalaghaTocState extends State<BalaghaToc> {
     int TypeNo = 0;
     String Description = '';
     int totalTypeNo = 0;
+    BalaghatocRepo balaghatocRepo =
+        widget.repo == null ? BalaghatocRepo() : widget.repo!;
+
+    var user = widget.auth == null
+        ? FirebaseAuth.instance.currentUser
+        : widget.auth!.currentUser;
 
     return BlocProvider(
-      create: (context) => balaghaBloc(repository: BalaghatocRepo())
+      create: (context) => balaghaBloc(repository: balaghatocRepo)
         ..add(tocReadEvent(TypeId: widget.TypeId)),
       child: BlocBuilder<balaghaBloc, tocStateBloc>(
         builder: (context, state) {
@@ -81,9 +89,11 @@ class _BalaghaTocState extends State<BalaghaToc> {
                       // <-- SEE HERE
                       decoration: BoxDecoration(
                           color: Color.fromARGB(255, 65, 205, 149)),
-                      accountName: Text(user!.displayName.toString()),
+                      accountName: Text(widget.auth == null
+                          ? user!.displayName.toString()
+                          : "test"),
                       accountEmail: Text(
-                        user!.email.toString(),
+                        widget.auth == null ? user!.email.toString() : "bbbb",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

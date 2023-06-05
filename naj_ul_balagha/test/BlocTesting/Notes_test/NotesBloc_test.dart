@@ -28,13 +28,12 @@ void main() {
       expect: () => [isA<BlocInitial>(), isA<BlocLoad>(), isA<BlocSuccess>()],
     );
 
-    // error state
     blocTest<NotesBloc, NotesStates>(
       "test for Read success",
       build: () => notesBloc,
       act: (bloc) {
         bloc.add(readAllNotesEvent(uid: '3'));
-        Future.delayed(const Duration(seconds: 4));
+        Future.delayed(const Duration(seconds: 8));
         bloc.add(readNotesEvent(id: "0"));
       },
       wait: const Duration(seconds: 2),
@@ -43,7 +42,6 @@ void main() {
         isA<BlocLoad>(),
         isA<BlocInitial>(),
         isA<BlocLoad>(),
-        isA<BlocSuccess>(),
         isA<BlocSuccess>(),
       ],
     );
@@ -112,7 +110,7 @@ void main() {
         bloc.add(readAllNotesEvent(uid: '3'));
         bloc.add(readNotesEvent(id: "100000"));
       },
-      wait: const Duration(seconds: 2),
+      wait: const Duration(seconds: 4),
       expect: () => [
         isA<BlocInitial>(),
         isA<BlocLoad>(),

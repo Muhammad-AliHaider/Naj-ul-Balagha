@@ -13,6 +13,16 @@ List<NotesModel> mockData = [
     uid: "1",
   ),
   NotesModel(
+    title: "Test Title 4",
+    content: "Test Content 2",
+    uid: "1",
+  ),
+  NotesModel(
+    title: "Test Title 5",
+    content: "Test Content 2",
+    uid: "1",
+  ),
+  NotesModel(
     title: "Test Title 2",
     content: "Test Content 2",
     uid: "2",
@@ -53,12 +63,13 @@ class MockNoteRepo implements NotesRepo {
   @override
   ReadAllNotes(String uid) async {
     return Future.delayed(const Duration(seconds: 2), () {
-      mockData.where((element) => element.uid == uid).toList();
-      for (int i = 0; i < mockData.length; i++) {
+      List<NotesModel> x =
+          mockData.where((element) => element.uid == uid).toList();
+      for (int i = 0; i < x.length; i++) {
         // print(mockData[i].title);
-        mockData[i].id = i.toString();
+        x[i].id = i.toString();
       }
-      return mockData;
+      return x;
     });
   }
 

@@ -7,7 +7,9 @@ import '../HawashiState.dart';
 import '../Repo/HawashiRepo.dart';
 
 class HawashiView extends StatefulWidget {
-  const HawashiView({Key? key}) : super(key: key);
+  final HawashiRepo? repo;
+  // final FirebaseAuth? auth;
+  const HawashiView({Key? key, this.repo}) : super(key: key);
 
   @override
   _HawashiViewState createState() => _HawashiViewState();
@@ -15,6 +17,9 @@ class HawashiView extends StatefulWidget {
 
 class _HawashiViewState extends State<HawashiView> {
   Widget build(BuildContext context) {
+    HawashiRepo? repository =
+        widget.repo == null ? HawashiRepo() : widget.repo!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -26,7 +31,7 @@ class _HawashiViewState extends State<HawashiView> {
       ),
       body: BlocProvider(
         create: (context) =>
-            HawashiBloc(repository: HawashiRepo())..add(HawashiReadAllEvent()),
+            HawashiBloc(repository: repository)..add(HawashiReadAllEvent()),
         child: BlocBuilder<HawashiBloc, HawashiState>(
           builder: (context, state) {
             if (state is BlocLoad) {
