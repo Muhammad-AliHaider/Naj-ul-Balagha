@@ -288,9 +288,92 @@ class _ReadingPageState extends State<ReadingPage> {
                                       ? Center(
                                           child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            Icons.open_in_browser_outlined,
-                                            size: 30,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              state.data[index].Hawashi != null
+                                                  ? showModalBottomSheet(
+                                                      context: context,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        // <-- SEE HERE
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .vertical(
+                                                          top: Radius.circular(
+                                                              25.0),
+                                                        ),
+                                                      ),
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return Container(
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .vertical(
+                                                                top: Radius
+                                                                    .circular(
+                                                                        25.0),
+                                                              ),
+                                                              gradient:
+                                                                  LinearGradient(
+                                                                colors: [
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          65,
+                                                                          205,
+                                                                          149),
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          84,
+                                                                          73,
+                                                                          236,
+                                                                          201)
+                                                                ],
+                                                                begin: Alignment
+                                                                    .topCenter,
+                                                                end: Alignment
+                                                                    .bottomCenter,
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      12.0),
+                                                              child: Card(
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child:
+
+                                                                      //ANCHOR - Change here for Haeashi
+
+                                                                      SplitHawashi(state.data[index].Hawashi.toString())
+                                                                              .isNotEmpty
+                                                                          ? ListView
+                                                                              .builder(
+                                                                              itemCount: SplitHawashi(state.data[index].Hawashi.toString()).length,
+                                                                              itemBuilder: (context, i) {
+                                                                                return ListTile(
+                                                                                  title: SplitHawashi(state.data[index].Hawashi.toString())[i].startsWith('#') ? Text(SplitHawashi(state.data[index].Hawashi.toString())[i].substring(1), style: TextStyle(fontFamily: 'Mohammdi', fontSize: widget.FontSize.ArabicFontSize), textAlign: TextAlign.justify) : Text(SplitHawashi(state.data[index].Hawashi.toString())[i], style: TextStyle(fontFamily: 'Alvi', fontSize: widget.FontSize.UrduFontSize), textAlign: TextAlign.justify),
+                                                                                );
+                                                                              },
+                                                                            )
+                                                                          : Container(),
+                                                                ),
+                                                              ),
+                                                            ));
+                                                      })
+                                                  : null;
+                                            },
+                                            icon: Icon(
+                                              Icons.open_in_browser_outlined,
+                                              size: 30,
+                                            ),
                                           ),
                                         ))
                                       : Container(),
