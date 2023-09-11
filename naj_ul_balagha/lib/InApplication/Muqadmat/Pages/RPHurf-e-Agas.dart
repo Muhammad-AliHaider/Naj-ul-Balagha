@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Settings_constants.dart';
 import '../MuqadamatBloc.dart';
 import '../Repo/MuqadamatRepo.dart';
 import '../MuqadamatModel.dart';
@@ -14,10 +15,12 @@ class RPHurf extends StatefulWidget {
   final int totalTypeNo;
   final MuqadamatRepo? repo;
   final FirebaseAuth? auth;
+  final Settings_Constants FontSizes;
   const RPHurf(
       {Key? key,
       required this.Type,
       required this.totalTypeNo,
+      required this.FontSizes,
       this.repo,
       this.auth})
       : super(key: key);
@@ -64,22 +67,32 @@ class _ReadingPageState extends State<RPHurf> {
                     BoxDecoration(color: Color.fromARGB(255, 65, 205, 149)),
                 accountName: Text(widget.auth == null
                     ? user!.displayName.toString()
-                    : "test1"),
+                    : "user"),
                 accountEmail: Text(
-                  widget.auth == null ? user!.email.toString() : "test2",
+                  widget.auth == null ? user!.email.toString() : "user email",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Colors.white,
-                  child: Text(
-                    "P",
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: widget.auth != null
+                      ? Text(
+                          "P",
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : user!.photoURL != null
+                          ? Image.network(user.photoURL.toString())
+                          : Text(
+                              "P",
+                              style: TextStyle(
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                 ),
               ),
               Divider(),
@@ -113,6 +126,16 @@ class _ReadingPageState extends State<RPHurf> {
                 title: const Text('پیش گفتار'),
                 onTap: () {
                   Navigator.pushNamed(context, '/PaishGhuftar');
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.settings,
+                ),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/Settings');
                 },
               ),
               Divider(),
@@ -169,7 +192,8 @@ class _ReadingPageState extends State<RPHurf> {
                                             : '',
                                         style: TextStyle(
                                             fontFamily: 'Mohammdi',
-                                            fontSize: 20),
+                                            fontSize: widget
+                                                .FontSizes.ArabicFontSize),
                                         textAlign: TextAlign.justify),
                                     SizedBox(
                                       height: 10,
@@ -179,7 +203,9 @@ class _ReadingPageState extends State<RPHurf> {
                                             ? state.data[index].mqur.toString()
                                             : '',
                                         style: TextStyle(
-                                            fontFamily: 'Alvi', fontSize: 20),
+                                            fontFamily: 'Alvi',
+                                            fontSize:
+                                                widget.FontSizes.UrduFontSize),
                                         textAlign: TextAlign.justify),
                                   ],
                                 ),
@@ -224,6 +250,7 @@ class _ReadingPageState extends State<RPHurf> {
                                       builder: (context) => RPHurf(
                                         Type: widget.Type + 1,
                                         totalTypeNo: widget.totalTypeNo,
+                                        FontSizes: widget.FontSizes,
                                       ),
                                     ),
                                   );
@@ -242,6 +269,7 @@ class _ReadingPageState extends State<RPHurf> {
                                       builder: (context) => RPHurf(
                                         Type: widget.Type - 1,
                                         totalTypeNo: widget.totalTypeNo,
+                                        FontSizes: widget.FontSizes,
                                       ),
                                     ),
                                   );

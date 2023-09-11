@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Settings_constants.dart';
 import '../BalaghatextEvents.dart';
 import '../BalaghatextStates.dart';
 import '../BalaghatextBloc.dart';
@@ -13,6 +14,7 @@ class ReadingPage extends StatefulWidget {
   final String title;
   final int totalTypeNo;
   final BalaghaTextRepo? repo;
+  final Settings_Constants FontSize;
   final FirebaseAuth? auth;
   const ReadingPage(
       {Key? key,
@@ -20,6 +22,7 @@ class ReadingPage extends StatefulWidget {
       required this.TypeNo,
       required this.title,
       required this.totalTypeNo,
+      required this.FontSize,
       this.auth,
       this.repo})
       : super(key: key);
@@ -36,6 +39,14 @@ class _ReadingPageState extends State<ReadingPage> {
     BalaghaTextRepo? repository =
         widget.repo == null ? BalaghaTextRepo() : widget.repo!;
 
+    //ANCHOR - Function for spliting Hawashi
+    SplitHawashi(String text) {
+      List<String> Hawashi = text.split('\$');
+      print("yeha say ");
+      print(Hawashi);
+      return Hawashi;
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -45,8 +56,6 @@ class _ReadingPageState extends State<ReadingPage> {
           actions: [
             IconButton(
               onPressed: () {
-                // Navigator.popUntil(context, (route) => route.isFirst);
-                // FirebaseAuth.instance.signOut();
                 Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_forward),
@@ -64,22 +73,32 @@ class _ReadingPageState extends State<ReadingPage> {
                     BoxDecoration(color: Color.fromARGB(255, 65, 205, 149)),
                 accountName: Text(widget.auth == null
                     ? user!.displayName.toString()
-                    : "text"),
+                    : "user"),
                 accountEmail: Text(
-                  widget.auth == null ? user!.displayName.toString() : "text23",
+                  widget.auth == null ? user!.email.toString() : "user email",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Colors.white,
-                  child: Text(
-                    "P",
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: widget.auth != null
+                      ? Text(
+                          "P",
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : user!.photoURL != null
+                          ? Image.network(user.photoURL.toString())
+                          : Text(
+                              "P",
+                              style: TextStyle(
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                 ),
               ),
               Divider(),
@@ -118,11 +137,11 @@ class _ReadingPageState extends State<ReadingPage> {
               Divider(),
               ListTile(
                 leading: Icon(
-                  Icons.auto_stories_rounded,
+                  Icons.settings,
                 ),
-                title: const Text('حواشی'),
+                title: const Text('سیٹنگز'),
                 onTap: () {
-                  Navigator.pushNamed(context, '/hawashiView');
+                  Navigator.pushNamed(context, '/Settings');
                 },
               ),
               Divider(),
@@ -167,96 +186,115 @@ class _ReadingPageState extends State<ReadingPage> {
                           itemCount: state.data.length,
                           itemBuilder: (context, index) {
                             return Card(
-                              child: ListTile(
-                                onLongPress: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(
-                                        // <-- SEE HERE
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(25.0),
-                                        ),
-                                      ),
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                            // height: MediaQuery.of(context)
-                                            //         .size
-                                            //         .height *
-                                            //     0.75,
-                                            decoration: const BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                top: Radius.circular(25.0),
-                                              ),
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Color.fromARGB(
-                                                      255, 65, 205, 149),
-                                                  Color.fromARGB(
-                                                      84, 73, 236, 201)
-                                                ],
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(12.0),
-                                              child: Card(
-                                                  child: SingleChildScrollView(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    children: [
-                                                      // Center(
-                                                      //     child: Text(
-                                                      //         state.data[index]
-                                                      //             .AR
-                                                      //             .toString(),
-                                                      //         style: TextStyle(
-                                                      //             fontFamily:
-                                                      //                 'Mohammdi',
-                                                      //             fontSize: 20),
-                                                      //         textAlign:
-                                                      //             TextAlign
-                                                      //                 .justify)),
-                                                      ListTile(
-                                                          title: Text(
-                                                              state.data[index]
-                                                                          .UR !=
-                                                                      null
-                                                                  ? state
-                                                                      .data[
-                                                                          index]
-                                                                      .UR
-                                                                      .toString()
-                                                                  : '',
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'Alvi',
-                                                                  fontSize: 30),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .justify)),
-                                                    ],
-                                                  ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    onLongPress: () {
+                                      //ANCHOR - Change here for Hawashi logic use of spliting function
+
+                                      state.data[index].Hawashi != null
+                                          ? showModalBottomSheet(
+                                              context: context,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                // <-- SEE HERE
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                  top: Radius.circular(25.0),
                                                 ),
-                                              )),
-                                            ));
-                                      });
-                                },
-                                title: Text(state.data[index].AR.toString(),
-                                    style: TextStyle(
-                                        fontFamily: 'Mohammdi', fontSize: 30),
-                                    textAlign: TextAlign.justify),
-                                // subtitle: Text(
-                                //     state.data[index].UR != null
-                                //         ? state.data[index].UR.toString()
-                                //         : '',
-                                //     style: TextStyle(
-                                //         fontFamily: 'Alvi', fontSize: 20),
-                                //     textAlign: TextAlign.justify),
+                                              ),
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                            25.0),
+                                                      ),
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Color.fromARGB(255,
+                                                              65, 205, 149),
+                                                          Color.fromARGB(
+                                                              84, 73, 236, 201)
+                                                        ],
+                                                        begin:
+                                                            Alignment.topCenter,
+                                                        end: Alignment
+                                                            .bottomCenter,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              12.0),
+                                                      child: Card(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child:
+
+                                                              //ANCHOR - Change here for Haeashi
+
+                                                              SplitHawashi(state
+                                                                          .data[
+                                                                              index]
+                                                                          .Hawashi
+                                                                          .toString())
+                                                                      .isNotEmpty
+                                                                  ? ListView
+                                                                      .builder(
+                                                                      itemCount: SplitHawashi(state
+                                                                              .data[index]
+                                                                              .Hawashi
+                                                                              .toString())
+                                                                          .length,
+                                                                      itemBuilder:
+                                                                          (context,
+                                                                              i) {
+                                                                        return ListTile(
+                                                                          title: SplitHawashi(state.data[index].Hawashi.toString())[i].startsWith('#')
+                                                                              ? Text(SplitHawashi(state.data[index].Hawashi.toString())[i].substring(1), style: TextStyle(fontFamily: 'Mohammdi', fontSize: widget.FontSize.ArabicFontSize), textAlign: TextAlign.justify)
+                                                                              : Text(SplitHawashi(state.data[index].Hawashi.toString())[i], style: TextStyle(fontFamily: 'Alvi', fontSize: widget.FontSize.UrduFontSize), textAlign: TextAlign.justify),
+                                                                        );
+                                                                      },
+                                                                    )
+                                                                  : Container(),
+                                                        ),
+                                                      ),
+                                                    ));
+                                              })
+                                          : null;
+                                    },
+                                    title: Text(state.data[index].AR.toString(),
+                                        style: TextStyle(
+                                            fontFamily: 'Mohammdi',
+                                            fontSize:
+                                                widget.FontSize.ArabicFontSize),
+                                        textAlign: TextAlign.justify),
+                                    subtitle: Text(
+                                        state.data[index].UR != null
+                                            ? state.data[index].UR.toString()
+                                            : '',
+                                        style: TextStyle(
+                                            fontFamily: 'Alvi',
+                                            fontSize:
+                                                widget.FontSize.UrduFontSize),
+                                        textAlign: TextAlign.justify),
+                                  ),
+                                  state.data[index].Hawashi != null
+                                      ? Center(
+                                          child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Icon(
+                                            Icons.open_in_browser_outlined,
+                                            size: 30,
+                                          ),
+                                        ))
+                                      : Container(),
+                                ],
                               ),
                             );
                           },
@@ -300,6 +338,7 @@ class _ReadingPageState extends State<ReadingPage> {
                                         TypeNo: widget.TypeNo + 1,
                                         title: widget.title,
                                         totalTypeNo: widget.totalTypeNo,
+                                        FontSize: widget.FontSize,
                                       ),
                                     ),
                                   );
@@ -320,6 +359,7 @@ class _ReadingPageState extends State<ReadingPage> {
                                         TypeNo: widget.TypeNo - 1,
                                         title: widget.title,
                                         totalTypeNo: widget.totalTypeNo,
+                                        FontSize: widget.FontSize,
                                       ),
                                     ),
                                   );

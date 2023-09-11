@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksBloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
+import 'package:naj_ul_balagha/InApplication/Settings_constants.dart';
 
 import '../Repo/balaghatocRepo.dart';
 import '../balaghatocbloc.dart';
@@ -19,6 +20,7 @@ class BalaghaToc extends StatefulWidget {
   final String title;
   final BalaghatocRepo? repo;
   final FirebaseAuth? auth;
+  final Settings_Constants FontSize;
   final Function(Locale) changeLocale;
 
   const BalaghaToc(
@@ -26,6 +28,7 @@ class BalaghaToc extends StatefulWidget {
       required this.TypeId,
       required this.title,
       required this.changeLocale,
+      required this.FontSize,
       this.repo,
       this.auth})
       : super(key: key);
@@ -91,22 +94,34 @@ class _BalaghaTocState extends State<BalaghaToc> {
                           color: Color.fromARGB(255, 65, 205, 149)),
                       accountName: Text(widget.auth == null
                           ? user!.displayName.toString()
-                          : "test"),
+                          : "user"),
                       accountEmail: Text(
-                        widget.auth == null ? user!.email.toString() : "bbbb",
+                        widget.auth == null
+                            ? user!.email.toString()
+                            : "user email",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       currentAccountPicture: CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Text(
-                          "P",
-                          style: TextStyle(
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: widget.auth != null
+                            ? Text(
+                                "P",
+                                style: TextStyle(
+                                  fontSize: 40.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : user!.photoURL != null
+                                ? Image.network(user.photoURL.toString())
+                                : Text(
+                                    "P",
+                                    style: TextStyle(
+                                      fontSize: 40.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                       ),
                     ),
                     Divider(),
@@ -145,16 +160,13 @@ class _BalaghaTocState extends State<BalaghaToc> {
                       },
                     ),
                     Divider(),
-
-                    // حواشی
-
                     ListTile(
                       leading: Icon(
-                        Icons.auto_stories_rounded,
+                        Icons.settings,
                       ),
-                      title: const Text('حواشی'),
+                      title: const Text('سیٹنگز'),
                       onTap: () {
-                        Navigator.pushNamed(context, '/hawashiView');
+                        Navigator.pushNamed(context, '/Settings');
                       },
                     ),
                     Divider(),
@@ -177,7 +189,7 @@ class _BalaghaTocState extends State<BalaghaToc> {
                           title: Text(state.data[index].Description as String,
                               style: TextStyle(
                                 fontFamily: 'Alvi',
-                                fontSize: 20,
+                                fontSize: widget.FontSize.UrduFontSize,
                               )),
                           onTap: () {
                             if (widget.TypeId != 5) {
@@ -189,6 +201,7 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                     title: widget.title,
                                     TypeNo: state.data[index].typeNo as int,
                                     totalTypeNo: state.data.length,
+                                    FontSize: widget.FontSize,
                                   ),
                                 ),
                               );
@@ -200,6 +213,7 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                   builder: (context) => RPHurf(
                                     Type: (state.data[index].typeNo as int) + 2,
                                     totalTypeNo: 6,
+                                    FontSizes: widget.FontSize,
                                   ),
                                 ),
                               );

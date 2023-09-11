@@ -250,7 +250,7 @@ class _LoginState extends State<Login> {
             key: formkey,
             child: Column(children: [
               const SizedBox(
-                height: 50,
+                height: 25,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.naj_ul_balagha">
    <application
-        android:label="naj_ul_balagha"
+        android:label="نہج البلاغہ"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

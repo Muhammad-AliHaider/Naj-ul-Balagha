@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:naj_ul_balagha/InApplication/Bloc_Balagha_toc/Pages/IndexedPage.dart';
+import 'package:naj_ul_balagha/InApplication/Settings_constants.dart';
 
 class HomePage extends StatefulWidget {
   final Function(Locale) changeLocale;
-  const HomePage({Key? key, required this.changeLocale}) : super(key: key);
+  final Settings_Constants FontSizes;
+  const HomePage(
+      {Key? key, required this.changeLocale, required this.FontSizes})
+      : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                           TypeId: 5,
                           title: 'حرف آغاز',
                           changeLocale: widget.changeLocale,
+                          FontSize: widget.FontSizes,
                         ),
                       ),
                     );
@@ -116,6 +121,7 @@ class _HomePageState extends State<HomePage> {
                           TypeId: 1,
                           title: 'خطبات',
                           changeLocale: widget.changeLocale,
+                          FontSize: widget.FontSizes,
                         ),
                       ),
                     );
@@ -152,6 +158,7 @@ class _HomePageState extends State<HomePage> {
                           TypeId: 2,
                           title: 'مکتوبات',
                           changeLocale: widget.changeLocale,
+                          FontSize: widget.FontSizes,
                         ),
                       ),
                     );
@@ -188,6 +195,7 @@ class _HomePageState extends State<HomePage> {
                           TypeId: 3,
                           title: 'حکم و مواعظ',
                           changeLocale: widget.changeLocale,
+                          FontSize: widget.FontSizes,
                         ),
                       ),
                     );
@@ -224,6 +232,7 @@ class _HomePageState extends State<HomePage> {
                           TypeId: 4,
                           title: 'تشریح طلب کلام',
                           changeLocale: widget.changeLocale,
+                          FontSize: widget.FontSizes,
                         ),
                       ),
                     );

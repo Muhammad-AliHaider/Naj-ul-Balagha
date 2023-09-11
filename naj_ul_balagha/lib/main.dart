@@ -6,11 +6,13 @@ import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/PaishGhuftar.dart';
 import 'package:naj_ul_balagha/InApplication/Notes/pages/NotesView.dart';
+import 'package:naj_ul_balagha/InApplication/Settings_constants.dart';
 import 'package:naj_ul_balagha/OnBoarding/Login.dart';
 
 import 'InApplication/Hawashi/Pages/HawashiView.dart';
 import 'InApplication/Notes/pages/NoteAdd.dart';
 import 'InApplication/ProfileOptions.dart';
+import 'InApplication/Settings.dart';
 import 'InApplication/UpdateUser.dart';
 import 'OnBoarding/Signup.dart';
 
@@ -46,6 +48,8 @@ class _APPState extends State<APP> {
 
   @override
   Widget build(BuildContext context) {
+    Settings_Constants FontSizes = new Settings_Constants();
+
     return MaterialApp(
       routes: {
         '/': (context) => Login(
@@ -54,6 +58,7 @@ class _APPState extends State<APP> {
         '/SignUp': (context) => SignUp(),
         '/HomePage': (context) => HomePage(
               changeLocale: changeLocale,
+              FontSizes: FontSizes,
             ),
 
         '/Profile': (context) => Profile(changeLocale: changeLocale),
@@ -62,9 +67,12 @@ class _APPState extends State<APP> {
         '/NotesView': (context) => NotesView(changeLocale: changeLocale),
         '/NoteAdd': (context) => NoteAdd(),
         '/BookmarksView': (context) =>
-            BookmarksView(changeLocale: changeLocale),
+            BookmarksView(changeLocale: changeLocale, FontSizes: FontSizes),
         '/PaishGhuftar': (context) => const PaishGhuftar(),
         '/hawashiView': (context) => const HawashiView(),
+        '/Settings': (context) => Settings(
+              FontSizes: FontSizes,
+            ),
         // '/IndexPage': (context) => BalaghaToc()
       },
       localizationsDelegates: [

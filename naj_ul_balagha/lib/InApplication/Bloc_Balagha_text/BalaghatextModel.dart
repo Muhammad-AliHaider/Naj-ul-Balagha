@@ -5,6 +5,7 @@ class BalaghatextModel {
   String? AR;
   String? UR;
   String? ARsimple;
+  String? Hawashi;
 
   BalaghatextModel(
       {this.id, this.type, this.typeNo, this.AR, this.UR, this.ARsimple});
@@ -16,6 +17,7 @@ class BalaghatextModel {
     AR = json['AR'];
     UR = json['UR'];
     ARsimple = json['ARSIMPLE'];
+    Hawashi = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,6 +28,7 @@ class BalaghatextModel {
     data['AR'] = AR;
     data['UR'] = UR;
     data['ARSIMPLE'] = ARsimple;
+    data['status'] = Hawashi;
     return data;
   }
 }

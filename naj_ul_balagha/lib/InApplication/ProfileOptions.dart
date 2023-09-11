@@ -117,7 +117,7 @@ class _Profile extends State<Profile> {
                             // HandleDelete(context, user!.uid);
                             showDialog(
                                 context: context,
-                                builder: (BuildContext context) {
+                                builder: (BuildContext innercontext) {
                                   return AlertDialog(
                                     title: Text("Delete Account"),
                                     content: Text(
@@ -125,13 +125,13 @@ class _Profile extends State<Profile> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                          Navigator.pop(innercontext);
                                         },
                                         child: Text("Cancel"),
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          HandleDelete(context, user!.uid);
+                                          HandleDelete(context, user?.uid);
                                         },
                                         child: Text("Delete"),
                                       ),

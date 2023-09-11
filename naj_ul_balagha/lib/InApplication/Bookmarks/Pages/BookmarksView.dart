@@ -5,6 +5,7 @@ import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksBloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/Repo/BookmarksRepo.dart';
 import 'package:naj_ul_balagha/InApplication/Muqadmat/Pages/RPHurf-e-Agas.dart';
+import 'package:naj_ul_balagha/InApplication/Settings_constants.dart';
 
 import '../../Bloc_Balagha_text/Pages/ReadingPage.dart';
 import '../BookmarksEvents.dart';
@@ -13,8 +14,13 @@ class BookmarksView extends StatefulWidget {
   final FirebaseAuth? auth;
   final BookmarksRepo? repo;
   final Function(Locale) changeLocale;
+  final Settings_Constants FontSizes;
   const BookmarksView(
-      {Key? key, required this.changeLocale, this.auth, this.repo})
+      {Key? key,
+      required this.changeLocale,
+      required this.FontSizes,
+      this.auth,
+      this.repo})
       : super(key: key);
 
   @override
@@ -106,6 +112,7 @@ class _BookmarksViewState extends State<BookmarksView> {
                                         TypeNo: state.data[index].typeNo as int,
                                         totalTypeNo: state
                                             .data[index].totaltypeNo as int,
+                                        FontSize: widget.FontSizes,
                                       ),
                                     ),
                                   );
@@ -118,6 +125,7 @@ class _BookmarksViewState extends State<BookmarksView> {
                                         Type: state.data[index].typeNo as int,
                                         totalTypeNo: state
                                             .data[index].totaltypeNo as int,
+                                        FontSizes: widget.FontSizes,
                                       ),
                                     ),
                                   );

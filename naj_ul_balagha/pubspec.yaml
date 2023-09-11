@@ -47,10 +47,25 @@ dependencies:
     sdk: flutter
   golden_toolkit: ^0.15.0
   mockito: ^5.4.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  # background_image: "assets/images/bg3.jpg"
+  image: "assets/images/SignUp_Center_2.png"
+  android: true
+  ios: true
+
+
+flutter_icons:
+  android: true
+  ios : true
+  image_path: "assets/images/SignUP_Center_5.jpg"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
