@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                   key: ValueKey('button1'),
                   onPressed: () {
                     // Navigator.pushNamed(context, '/test');
-                    print("Button Daba");
+                    // print("Button Daba");
                     Navigator.push(
                       context,
                       MaterialPageRoute(

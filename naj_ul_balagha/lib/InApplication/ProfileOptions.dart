@@ -43,7 +43,7 @@ class _Profile extends State<Profile> {
         await _auth.currentUser?.delete();
         BlocProvider.of<UserBloc>(context).add(userDelete_Event(uid: uid));
       } catch (e) {
-        print(e);
+        // print(e);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Error"),

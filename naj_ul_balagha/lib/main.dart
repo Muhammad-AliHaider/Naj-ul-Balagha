@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/Pages/BookmarksView.dart';
 import 'package:naj_ul_balagha/InApplication/HomePage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -39,10 +40,17 @@ class APP extends StatefulWidget {
 class _APPState extends State<APP> {
   Locale _currentLocale = const Locale('en', 'US');
 
+  void initState() {
+    // TODO: implement initState
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
+    super.initState();
+  }
+
   changeLocale(Locale newLocale) {
     setState(() {
       _currentLocale = newLocale;
-      print(_currentLocale);
+      // print(_currentLocale);
     });
   }
 

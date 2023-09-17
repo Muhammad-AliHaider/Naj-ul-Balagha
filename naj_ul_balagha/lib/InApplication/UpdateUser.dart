@@ -115,13 +115,13 @@ class _UpdateUserState extends State<UpdateUser> {
       HandleValidate_BirthDate();
 
       if (formkey.currentState!.validate()) {
-        print('Validated');
+        // print('Validated');
         setState(() {
           loading = true;
         });
 
         if (user != null) {
-          print(widget.auth == null ? user.uid : "1");
+          // print(widget.auth == null ? user.uid : "1");
 
           user.updateDisplayName(UserName);
           user.updateEmail(email);
@@ -145,7 +145,7 @@ class _UpdateUserState extends State<UpdateUser> {
         }
         // FirebaseAuth.instance.signOut();
       } else {
-        print('Not Validated');
+        // print('Not Validated');
       }
     }
 

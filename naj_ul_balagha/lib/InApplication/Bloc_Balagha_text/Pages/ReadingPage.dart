@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:share_plus/share_plus.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../Settings_constants.dart';
 import '../BalaghatextEvents.dart';
@@ -370,7 +371,7 @@ class _ReadingPageState extends State<ReadingPage> {
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                            .fromLTRB(
+                                                                        .fromLTRB(
                                                                         0,
                                                                         8,
                                                                         8,
@@ -381,114 +382,84 @@ class _ReadingPageState extends State<ReadingPage> {
                                                                           .min,
                                                                   children: [
                                                                     Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
                                                                       mainAxisSize:
                                                                           MainAxisSize
-                                                                              .min,
+                                                                              .max,
                                                                       children: [
-                                                                        Container(
-                                                                          // IconButton(
-                                                                          // onPressed: () {
-                                                                          //   SignInWithGoogle();
-                                                                          // },
-                                                                          // icon: Image.asset(
-                                                                          //   'assets/images/icons8-google-500.png',
-                                                                          // )),
-                                                                          child: IconButton(
-                                                                              onPressed: () => onButtonTap(Share.twitter, msg),
-                                                                              icon: Image.asset('assets/icons/twitter.svg')),
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          children: [
+                                                                            IconButton(
+                                                                                icon: Icon(FontAwesomeIcons.facebook),
+                                                                                onPressed: () => onButtonTap(Share.facebook, msg)),
+                                                                            Text("facebook")
+                                                                          ],
                                                                         ),
-                                                                        // ListTile(
-                                                                        //   onTap:
-                                                                        //       () {
-                                                                        //     onButtonTap(
-                                                                        //         Share.twitter,
-                                                                        //         msg);
-                                                                        //     // Share.share(
-                                                                        //     //     "Hello");
-                                                                        //     // Share.share(state
-                                                                        //     //     .data[index]
-                                                                        //     //     .AR
-                                                                        //     //     .toString());
-
-                                                                        //     // copied successfully
-                                                                        //   },
-                                                                        //   leading:
-                                                                        //       Icon(
-                                                                        //     Icons
-                                                                        //         .share,
-                                                                        //     size:
-                                                                        //         20,
-                                                                        //   ),
-                                                                        //   title:
-                                                                        //       Text(
-                                                                        //     "Twitter شيئر کریں۔",
-                                                                        //     style: TextStyle(
-                                                                        //         fontFamily:
-                                                                        //             'Alvi',
-                                                                        //         fontSize:
-                                                                        //             widget.FontSize.UrduFontSize),
-                                                                        //   ),
-                                                                        // ),
-                                                                        // Divider(),
-                                                                        // ListTile(
-                                                                        //   onTap:
-                                                                        //       () {
-                                                                        //     // Share.share(state
-                                                                        //     //     .data[index]
-                                                                        //     //     .UR
-                                                                        //     //     .toString());
-
-                                                                        //     // copied successfully
-                                                                        //   },
-                                                                        //   leading:
-                                                                        //       Icon(
-                                                                        //     Icons
-                                                                        //         .share,
-                                                                        //     size:
-                                                                        //         20,
-                                                                        //   ),
-                                                                        //   title:
-                                                                        //       Text(
-                                                                        //     "اردو شيئر کریں۔",
-                                                                        //     style: TextStyle(
-                                                                        //         fontFamily:
-                                                                        //             'Alvi',
-                                                                        //         fontSize:
-                                                                        //             widget.FontSize.UrduFontSize),
-                                                                        //   ),
-                                                                        // ),
-                                                                        // Divider(),
-                                                                        // ListTile(
-                                                                        //   onTap:
-                                                                        //       () async {
-                                                                        //     // await Share.share(
-                                                                        //     //     'عربی : ${state.data[index].AR.toString()}\n \n اردو : ${state.data[index].UR.toString()}');
-
-                                                                        //     print(
-                                                                        //         "share huraha");
-
-                                                                        //     // Navigator.pop(
-                                                                        //     //     context);
-                                                                        //     // copied successfully
-                                                                        //   },
-                                                                        //   leading:
-                                                                        //       Icon(
-                                                                        //     Icons
-                                                                        //         .share,
-                                                                        //     size:
-                                                                        //         20,
-                                                                        //   ),
-                                                                        //   title:
-                                                                        //       Text(
-                                                                        //     "دونوں شيئر کریں۔",
-                                                                        //     style: TextStyle(
-                                                                        //         fontFamily:
-                                                                        //             'Alvi',
-                                                                        //         fontSize:
-                                                                        //             widget.FontSize.UrduFontSize),
-                                                                        //   ),
-                                                                        // ),
-                                                                        // Divider()
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          children: [
+                                                                            IconButton(
+                                                                                onPressed: () => onButtonTap(Share.twitter, msg),
+                                                                                icon: Icon(FontAwesomeIcons.twitter)),
+                                                                            Text("Twitter")
+                                                                          ],
+                                                                        ),
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          children: [
+                                                                            IconButton(
+                                                                                onPressed: () => onButtonTap(Share.whatsapp, msg),
+                                                                                icon: Icon(FontAwesomeIcons.whatsapp)),
+                                                                            Text("WhatsApp")
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Divider(),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          children: [
+                                                                            IconButton(
+                                                                                icon: Icon(FontAwesomeIcons.facebookMessenger),
+                                                                                onPressed: () => onButtonTap(Share.messenger, msg)),
+                                                                            Text("Messenger")
+                                                                          ],
+                                                                        ),
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          children: [
+                                                                            IconButton(
+                                                                                onPressed: () => onButtonTap(Share.share_system, msg),
+                                                                                icon: Icon(FontAwesomeIcons.bars)),
+                                                                            Text("Others")
+                                                                          ],
+                                                                        ),
                                                                       ],
                                                                     ),
                                                                   ],
@@ -527,7 +498,7 @@ class _ReadingPageState extends State<ReadingPage> {
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                            .fromLTRB(
+                                                                        .fromLTRB(
                                                                         0,
                                                                         8,
                                                                         8,
@@ -701,8 +672,9 @@ class _ReadingPageState extends State<ReadingPage> {
                                                                       ),
                                                                       child:
                                                                           Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(12.0),
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            12.0),
                                                                         child:
                                                                             Card(
                                                                           child:
