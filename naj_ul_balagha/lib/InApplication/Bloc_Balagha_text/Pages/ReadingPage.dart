@@ -348,6 +348,7 @@ class _ReadingPageState extends State<ReadingPage> {
                                                   child: IconButton(
                                                     onPressed: () {
                                                       // Share.share("Hello");
+                                                      print("hello");
 
                                                       showModalBottomSheet(
                                                           context: context,
