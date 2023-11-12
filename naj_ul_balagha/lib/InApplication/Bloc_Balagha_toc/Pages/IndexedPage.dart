@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naj_ul_balagha/InApplication/Bloc_Balagha_toc/balaghatocModel.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksBloc.dart';
 import 'package:naj_ul_balagha/InApplication/Bookmarks/BookmarksStates.dart';
 import 'package:naj_ul_balagha/InApplication/Settings_constants.dart';
@@ -38,6 +39,31 @@ class BalaghaToc extends StatefulWidget {
 }
 
 class _BalaghaTocState extends State<BalaghaToc> {
+  List<BalaghatocModel> _originalData = [];
+  List<BalaghatocModel> _filteredData = [];
+  bool _isDataChanged = true;
+  bool _isSearching = false;
+  final _searchController = TextEditingController();
+
+  void _filterList(String query) {
+    print(query);
+    if (query.isEmpty) {
+      setState(() {
+        _filteredData = List<BalaghatocModel>.from(_originalData);
+      });
+    } else {
+      List<BalaghatocModel> filteredList = _originalData
+          .where((item) =>
+              item.Description!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      print("filteredList");
+      print(filteredList);
+      setState(() {
+        _filteredData = filteredList;
+      });
+    }
+  }
+
   Future<void> _initLocale() async {
     await Future.delayed(Duration.zero); // Delay execution until after build
     widget.changeLocale(const Locale('fa', 'IR')); // Change to French locale
@@ -76,9 +102,53 @@ class _BalaghaTocState extends State<BalaghaToc> {
               ),
             );
           } else if (state is BlocSuccess) {
+            if (_isDataChanged || _originalData.isEmpty) {
+              _originalData = state.data;
+              _filteredData = List<BalaghatocModel>.from(_originalData);
+              _isDataChanged = false;
+            }
             return Scaffold(
               appBar: AppBar(
-                title: Text(widget.title),
+                title: _isSearching
+                    ? TextField(
+                        controller: _searchController,
+                        style: TextStyle(color: Colors.black), // Set text color
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.search,
+                              color: Colors.black), // Set icon color
+                          hintText: "Search here...", // Set hint text color
+                          focusedBorder: UnderlineInputBorder(
+                            // Set focused border color
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          _filterList(value);
+                        },
+                      )
+                    : Text(widget.title),
+                actions: [
+                  _isSearching
+                      ? IconButton(
+                          icon: Icon(Icons.cancel),
+                          onPressed: () {
+                            setState(() {
+                              _isSearching = false;
+                              _filteredData = state
+                                  .data; // Assuming state.data is your original list
+                              _searchController.clear();
+                            });
+                          },
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: () {
+                            setState(() {
+                              _isSearching = true;
+                            });
+                          },
+                        ),
+                ],
                 surfaceTintColor: Color.fromARGB(84, 73, 236, 201),
                 shadowColor: Colors.grey.withOpacity(0.5),
                 backgroundColor: Color.fromARGB(255, 65, 205, 149),
@@ -182,15 +252,16 @@ class _BalaghaTocState extends State<BalaghaToc> {
                     height: MediaQuery.of(context).size.height,
                   ),
                   ListView.builder(
-                    itemCount: state.data.length,
+                    itemCount: _filteredData.length,
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          title: Text(state.data[index].Description as String,
-                              style: TextStyle(
-                                fontFamily: 'Alvi',
-                                fontSize: widget.FontSize.UrduFontSize,
-                              )),
+                          title:
+                              Text(_filteredData[index].Description as String,
+                                  style: TextStyle(
+                                    fontFamily: 'Alvi',
+                                    fontSize: widget.FontSize.UrduFontSize,
+                                  )),
                           onTap: () {
                             if (widget.TypeId != 5) {
                               Navigator.push(
@@ -199,8 +270,8 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                   builder: (context) => ReadingPage(
                                     Type: widget.TypeId,
                                     title: widget.title,
-                                    TypeNo: state.data[index].typeNo as int,
-                                    totalTypeNo: state.data.length,
+                                    TypeNo: _filteredData[index].typeNo as int,
+                                    totalTypeNo: _filteredData.length,
                                     FontSize: widget.FontSize,
                                   ),
                                 ),
@@ -211,7 +282,8 @@ class _BalaghaTocState extends State<BalaghaToc> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RPHurf(
-                                    Type: (state.data[index].typeNo as int) + 2,
+                                    Type: (_filteredData[index].typeNo as int) +
+                                        2,
                                     totalTypeNo: 6,
                                     FontSizes: widget.FontSize,
                                   ),
@@ -221,10 +293,10 @@ class _BalaghaTocState extends State<BalaghaToc> {
                           },
                           onLongPress: () {
                             if (widget.TypeId != 5) {
-                              TypeNo = state.data[index].typeNo as int;
+                              TypeNo = _filteredData[index].typeNo as int;
                               Description =
-                                  state.data[index].Description as String;
-                              totalTypeNo = state.data.length;
+                                  _filteredData[index].Description as String;
+                              totalTypeNo = _filteredData.length;
                               showModalBottomSheet(
                                   shape: const RoundedRectangleBorder(
                                     // <-- SEE HERE
@@ -289,9 +361,9 @@ class _BalaghaTocState extends State<BalaghaToc> {
                             }
 
                             if (widget.TypeId == 5) {
-                              TypeNo = (state.data[index].typeNo as int) + 2;
+                              TypeNo = (_filteredData[index].typeNo as int) + 2;
                               Description =
-                                  state.data[index].Description as String;
+                                  _filteredData[index].Description as String;
                               totalTypeNo = 6;
                               showModalBottomSheet(
                                   shape: const RoundedRectangleBorder(
